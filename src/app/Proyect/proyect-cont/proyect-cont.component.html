@@ -1,0 +1,35 @@
+<div class="d-flex m-2">
+  <button class="btn btn-primary flex-fill" type="button" data-bs-toggle="collapse" data-bs-target="#proyectCollapse"
+    aria-expanded="false" aria-controls="ExpCollapse">
+    {{tituloProyectos}}
+  </button>
+
+</div>
+<div class="collapse" id="proyectCollapse">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex">
+        <h4 class="flex-fill m-auto">{{tituloProyectos}}</h4>
+        <button type="button" [hidden]="false" class="btn btn-success" data-bs-toggle="modal"
+          data-bs-target="#proyectDash"><span class="text-lg-center">+</span> </button>
+      </div>
+      <app-proyect-unit *ngFor="let proyect of proyDto " [proyDto]="proyect" [isAdmin]="admin" (outForm)="actualizar($event)"></app-proyect-unit>
+    </div>
+  </div>
+  <!-- dash -->
+  <div class="modal fade" id="proyectDash" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <app-dashboard>
+      <div name="titulo" class="d-block">Editar {{tituloProyectos}} </div>
+      <div name="cuerpo">
+        <form (ngSubmit)="guardar()" [formGroup]="saveProyectForm" class="mb-3 border-1">
+          <div *ngFor="let Dato of saveProyectFormLabes ">
+            <sheld-control [etiquetas]="Dato" [form]="saveProyectForm"></sheld-control>
+          </div>
+        </form>
+      </div>
+      <div name="footer">
+        <button type="button" class="btn btn-success m-1" (click)="guardar()">Agregar</button>
+      </div>
+    </app-dashboard>
+  </div>

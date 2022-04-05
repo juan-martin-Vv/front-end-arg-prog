@@ -1,0 +1,11 @@
+<div class="card" >
+  <div class="card-header">
+    <h5 class="card-title">Titulo: {{eduListDTO.titulo}}</h5>
+    <button type="button" [hidden]="false" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#educaionDash"><span class="text-lg-center">+</span> </button>
+  </div>
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Emisor: {{eduListDTO.titulo}}</h6>
+    <p class="card-text">Descripcion: {{eduListDTO.carrera}}<br>Fecha: {{eduListDTO.inicio|date:'dd/MM/yyyy'}}
+    <br>Completado:{{eduListDTO.fin}}</p>
+  </div>
+</div>

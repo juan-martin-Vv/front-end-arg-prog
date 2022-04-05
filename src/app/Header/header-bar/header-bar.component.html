@@ -1,0 +1,54 @@
+<nav >
+  <div class="d-flex flex-md-row  flex-column  justify-content-md-between ">
+    <div class="d-flex align-items-center  justify-content-between">
+      <div class="d-flex d-inline-block p-1 ">
+        <a href="https://argentinaprograma.inti.gob.ar/" class="d-inline-block">
+          <img src="../../../assets/APLogo-20-20.png" style="background-color: blue; height: 60px; width: auto;">
+        </a>
+      </div>
+      <div class="d-inline-bloc p-1">
+        <a href="https://argentinaprograma.inti.gob.ar/" class="text-decoration-none"># YO PROGRAMO</a>
+      </div>
+    </div>
+    <div class="d-flex align-items-center  justify-content-between">
+      <div class="d-inline-block ">
+        <div>
+          <a class="btn btn-block btn-social btn-twitter">
+            <span class="fa fa-twitter"></span>
+          </a>
+          <a class="btn btn-block btn-social btn-github">
+            <span class="fa fa-github"></span>
+          </a>
+          <a class="btn btn-block btn-social btn-facebook">
+            <span class="fa fa-facebook"></span>
+          </a>
+        </div>
+      </div>
+      <div class="d-flex d-inline-block p-2 ">
+        <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Launch demo modal
+        </button>-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DashBoard" *ngIf="isAdmin||true">Edit</button>
+        <button type="button" class="btn btn-primary"  *ngIf="isAdmin||true" (click)="login2()">login2</button>
+        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" *ngIf="isAdmin||true">Edit</button> -->
+      </div>
+    </div>
+  </div>
+</nav>
+<!---modal login-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1"  aria-hidden="true">
+  <app-login></app-login>
+</div>
+<!--modal board-->
+<div class="modal fade" id="DashBoard" tabindex="-1" data-bs-backdrop="static"  aria-hidden="true">
+  <app-dashboard>
+    <div name="titulo" class="d-block">Editar el header </div>
+    <div name="cuerpo">cuerpo del DashBoard headerdfd adfadsf Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellendus voluptatum accusamus sint dolore quo dicta commodi inventore iusto, quia tempore voluptate excepturi porro iure! Soluta voluptate sequi est aliquam.  dfadfa</div>
+  </app-dashboard>
+</div>
+
+<!-- <div class="offcanvas offcanvas-" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <app-dashboard></app-dashboard>
+</div> -->

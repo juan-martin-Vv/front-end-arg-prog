@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Nombre: {{proyDto.nombre}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Lenguaje: {{proyDto.lenguaje}}</h6>
+    <p class="card-text">Descripcion: {{proyDto.descripcion}}<br>
+  </div>
+  <button type="button"
+        [hidden]="false" class="btn btn-success me-0"
+        data-bs-toggle="modal"
+        [id]="butonId"
+        [attr.data-bs-target]="'#modal'+butonId">
+        <span class="text-lg-center">Editar {{proyDto.id}}</span>
+  </button>
+
+  <div class="modal fade" [id]="'modal'+butonId" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <app-dashboard>
+      <div name="titulo" class="d-block">Editar el header </div>
+      <div name="cuerpo">
+        <h3>Id [{{proyDto.id}}]</h3>
+        <form (ngSubmit)="editar()" [formGroup]="proyectForm" class="mb-3 border-1">
+          <div *ngFor="let Dato of proyectFormLabes">
+            <sheld-control [etiquetas]="Dato" [form]="proyectForm"></sheld-control>
+          </div>
+        </form>
+      </div>
+      <div name="footer">
+        <button type="button" class="btn btn-success" (click)="editar()">Actualizar</button>
+        <button type="button" class="btn btn-danger " (click)="borrar()">Delete</button>
+      </div>
+
+    </app-dashboard>
+  </div>

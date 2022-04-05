@@ -1,0 +1,30 @@
+<div class="d-flex m-2">
+  <button class="btn btn-primary flex-fill" type="button" data-bs-toggle="collapse" data-bs-target="#educationCollapse"
+    aria-expanded="false" aria-controls="educationCollapse">
+    {{titulo}}
+  </button>
+
+</div>
+<div class="collapse" id="educationCollapse">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex">
+        <h4 class="flex-fill m-auto">{{titulo}}</h4>
+        <button type="button" [hidden]="false" class="btn btn-success" data-bs-toggle="modal"
+          data-bs-target="#educaionDash"><span class="text-lg-center">+</span></button>
+      </div>
+      <!-- <app-education-unit *ngFor="let titulo of educacionLista; index as nope" [educacionLista]="titulo"> -->
+      <app-education-unit *ngFor="let titulo of eduListDTO; index as nope" [eduListDTO]="titulo">
+      </app-education-unit>
+    </div>
+  </div>
+</div>
+<!-- dash board-->
+<div class="modal fade" id="educaionDash" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+  <app-dashboard>
+    <div name="titulo" class="d-block">Editar {{titulo}} </div>
+    <div name="cuerpo">cuerpo del DashBoard headerdfd adfadsf Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      Odit repellendus voluptatum accusamus sint dolore quo dicta commodi inventore iusto, quia tempore voluptate
+      excepturi porro iure! Soluta voluptate sequi est aliquam. dfadfa</div>
+  </app-dashboard>
+</div>

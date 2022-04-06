@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Login2Component } from 'src/app/login2/login2.component';
 
@@ -11,8 +12,13 @@ export class HeaderBarComponent implements OnInit {
   @Input()
   isAdmin!:boolean;
 
-  constructor(private modal:NgbModal) { }
+  constructor(private modal:NgbModal,
+    private router:Router,
 
+    ) { }
+    gotoLogin(){
+      this.router.navigate(['/login',{login:'on'}])
+    }
   ngOnInit(): void {
   }
   login2(){

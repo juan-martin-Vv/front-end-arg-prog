@@ -8,6 +8,7 @@ import { ExperienciaDTO } from '../Class/experency-class';
 import { ProyectoDTO } from '../Class/proyect-class';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { UrlCreationOptions } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class ConectorRestService {
     return  this.http.get<any>(get_link.toString()).pipe(catchError(
           (e)=>{
             console.log('error en el api: '+e)
-            return throwError(e.error);
+            return throwError(e);
           },
         ));
   }
@@ -78,8 +79,8 @@ export class ConectorRestService {
     return  this.http.post<any>(get_link.toString(),body)
     .pipe(catchError(
           (e)=>{
-            console.log('error en el api: '+e.error)
-            return throwError(e.error);
+            console.log('error en el api: '+e)
+            return throwError(e);
           },
         ));
   }
@@ -88,7 +89,7 @@ export class ConectorRestService {
     return  this.http.put<any>(get_link.toString(),body).pipe(catchError(
           (e)=>{
             console.log('error en el interceptor: '+e)
-            return throwError(e.error);
+            return throwError(e);
           },
         ));
   }
@@ -97,7 +98,7 @@ export class ConectorRestService {
     return  this.http.delete<any>(get_link.toString()).pipe(catchError(
           (e)=>{
             console.log('error en el interceptor: '+e)
-            return throwError(e.error);
+            return throwError(e);
           },
         ));
   }

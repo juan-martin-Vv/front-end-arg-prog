@@ -63,7 +63,8 @@ export class ControlComponent implements OnInit {
         // console.log(' keyError: ' + keyError + ', value: ' + controlErrors[keyError]);
         this.etiquetas.restricciones.forEach(res => {
           if (res.restriccion.includes(keyError)) {
-            errores.push(res.errores || keyError);
+            errores=[...errores,res.errores||keyError]
+            //errores.push(res.errores || keyError);
           }
         })
       });

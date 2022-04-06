@@ -19,12 +19,15 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let inReq = req;
     if (inReq.method == 'GET') { //metodos get pasan sin mas
-      return next.handle(inReq);
+      return next.handle(inReq).pipe(catchError(
+        (e:HttpResponse<any>)=> {return this.errorHandler(e, inReq,next);
+        }));
     }
     if (inReq.method == 'POST') {
       console.log('metodo post');
       if (inReq.url.endsWith('auth/login')) {
-        return next.handle(inReq);
+        return next.handle(inReq).pipe(catchError(
+          (e:HttpResponse<any>)=> {return this.errorHandler(e, inReq,next);}));
       }
     }
 
@@ -115,13 +118,14 @@ export class InterceptorService implements HttpInterceptor {
           console.log(`error status : ${error.status} ${error.statusText} a pedido de ${inReq.url}`);
           switch (error.status) {
             case 400:
-
+              handled=true;
+              return throwError(error.message); //devuelvo el mensaje de API a componente
             case 401:      //login
               if (this.refresToken(error)) { //tomo la respuesta y verifico si hay refrest
                 inReq = this.addToken(inReq, this.tokenService.getToken());
                 return next.handle(inReq)
               }
-              this.router.navigateByUrl("/login");
+              this.router.navigate(['/login',{login:'on'}]);
               handled = true;
               break;
             case 403:     //forbidden
@@ -131,6 +135,8 @@ export class InterceptorService implements HttpInterceptor {
               break;
             case 0:
               //this.router.navigateByUrl("/");
+              this.router.navigate(['/erro'],{queryParams:{on:true} });
+              //this.router.navigate(['/results'], { queryParams: { page: 1 } });
               console.log(`ERR_CONNECTION_REFUSED`);
               handled = true;
               break;

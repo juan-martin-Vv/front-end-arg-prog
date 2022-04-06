@@ -1,4 +1,3 @@
-<p>login2 works!</p>
 <div class="d-flex modal-header">
   <div>
     <h5 class="modal-title">{{titulo}}</h5>
@@ -8,13 +7,13 @@
 <div class="modal-body">
   <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+      <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login2" type="button"
         role="tab" aria-controls="login" aria-selected="true" (click)="onLogin()"><span
           class="fa fa-sign-in fa-lg"></span>
         Login</button>
     </li>
     <li class="nav-item">
-      <button class="nav-link" id="registro-tab" data-bs-toggle="tab" data-bs-target="#registro" type="button"
+      <button class="nav-link" id="registro-tab" data-bs-toggle="tab" data-bs-target="#registro2" type="button"
         role="tab" aria-controls="registro" aria-selected="false" (click)="onReg()"><span
           class="fa fa-book fa-lg"></span>
         Register</button>
@@ -24,7 +23,7 @@
     <!--form para login-->
     <!-- <ng-container *ngIf="!onLoginVar; else login">
   </ng-container> -->
-    <div #login class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+    <div #login class="tab-pane fade show active" id="login2" role="tabpanel" aria-labelledby="login-tab">
 
       <form (ngSubmit)="loggin()" [formGroup]="loginForm" class="mb-3 border-1">
         <div *ngFor="let Dato of loginFormLabes">
@@ -42,13 +41,13 @@
               Por Favor inicia session <span class="fa fa-bell "></span>
             </ng-template>
           </button>
-          <button type="button" class="btn btn-secondary m-1" (click)="goHome()">Close</button>
+          <button type="button" class="btn btn-secondary m-1" (click)="goHome()" >Close</button>
           <div class="alert-danger text-center m-1" [hidden]="!isLoggedFail">{{log_eMsg.toString()}}</div>
         </div>
       </div>
     </div>
     <!--form para registro-->
-    <div class="tab-pane fade" id="registro" role="tabpanel" aria-labelledby="registro-tab">
+    <div class="tab-pane fade" id="registro2" role="tabpanel" aria-labelledby="registro-tab">
       <ng-container *ngIf="!onRegVar; else Register">
       </ng-container>
       <ng-template #Register>
@@ -72,7 +71,7 @@
             </button>
             <button type="button" class="btn btn-secondary m-1"
               (click)="goHome()">Close</button>
-            <div *ngIf="!isRegisterFail" class="alert-danger text-center m-1">{{reg_eMsg}}</div>
+            <div [hidden]="!isRegisterFail" class="alert-danger text-center m-1">{{reg_eMsg}}</div>
           </div>
         </ng-container>
       </ng-template>

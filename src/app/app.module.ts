@@ -28,6 +28,7 @@ import { FormularioModule } from './formulario/formulario.module';
 import { ErrorHandlerProvider } from './Service/Interceptor/golbal-error-handler.service';
 import 'zone.js/dist/zone.api.extensions';
 import { Login2Component } from './login2/login2.component';
+import { NoFoundComponent } from './no-found/no-found.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { Login2Component } from './login2/login2.component';
     LoginComponent,
     MainComponent,
     DashboardComponent,
-    Login2Component
+    Login2Component,
+    NoFoundComponent
   ],
   imports: [
     BrowserModule,

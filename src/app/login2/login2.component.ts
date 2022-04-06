@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -49,11 +49,13 @@ export class Login2Component implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formService: ControlService,
+    private cd:ChangeDetectorRef,
     //
-
+    public activeModal:NgbActiveModal
   ) {}
   goHome():void{
-    this.router.navigate(['/',]);
+    this.activeModal.close()
+    this.router.navigate(['/']);
   }
   //
   ngOnInit(): void {
@@ -76,10 +78,12 @@ export class Login2Component implements OnInit {
     this.loginForm.reset();
   }
   onReg(): void {
+    
     this.onRegVar = true;
     this.onLoginVar = false;
     //
     this.isRegisterFail = false;
+    
   }
   loggin(loginUserIn?: Login) {
     let login: Login;
@@ -111,6 +115,7 @@ export class Login2Component implements OnInit {
         window.sessionStorage.clear();
         this.log_eMsg = e;
         console.log(e);
+        this.cd.markForCheck()
       },
       () => {
         //console.log("nombre almacenado: " + this.tokenService.getUserName());
@@ -133,8 +138,9 @@ export class Login2Component implements OnInit {
       e => {
         this.isRegister = false;
         this.isRegisterFail = true;
-        this.reg_eMsg = e.error;
-        console.log("fail in onRegister");
+        this.reg_eMsg = e;
+        console.log("fail in onRegister :"+this.reg_eMsg);
+        this.cd.markForCheck()
       },
       () => {
         this.isRegister = true;
@@ -143,7 +149,7 @@ export class Login2Component implements OnInit {
         this.loggin(new Login(nuevo_user.nombreUsuario, nuevo_user.password));
       }
     );
-
+    
   }
 
 }

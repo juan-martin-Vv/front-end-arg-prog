@@ -31,6 +31,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DashBoard" *ngIf="isAdmin||true">Edit</button>
         <button type="button" class="btn btn-primary"  *ngIf="isAdmin||true" (click)="login2()">login2</button>
+        <button type="button" class="btn btn-primary"  *ngIf="isAdmin||true" (click)="gotoLogin()">goto</button>
         <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" *ngIf="isAdmin||true">Edit</button> -->
       </div>
     </div>
@@ -52,3 +53,4 @@
 <!-- <div class="offcanvas offcanvas-" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <app-dashboard></app-dashboard>
 </div> -->
+<router-outlet></router-outlet>

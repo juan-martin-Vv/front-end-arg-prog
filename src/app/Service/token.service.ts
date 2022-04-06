@@ -62,6 +62,30 @@ export class TokenService {
     }
     return is_admin;
   }
+  public isExpired():boolean{
+    //this.roles = [];
+    let token:string = this.getToken().toString();
+    //let rol: autoridad[];
+    let raw!:String;
+    let body:jwtApi;
+    let ixpiredDate:Date;
+    if (!token.includes("no TOKEN key storage")) 
+    {
+        raw=token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
+        raw=Buffer.from(raw.toString(),'base64').toString('binary');//decoficamos
+        console.log(raw);
+        //
+        body=JSON.parse(raw.toString());
+        //rol = body.privilegios;
+        //console.log(rol);
+        //rol?.forEach((e) => { this.roles.push(e.authority) });
+        ixpiredDate=new Date(body.exp.valueOf());
+        console.log(ixpiredDate.getUTCMilliseconds());
+    }
+    console.log("roles:");
+    //console.log(this.roles);
+    return true;
+  }
 }
 interface autoridad {
   authority: String;
@@ -87,3 +111,4 @@ interface jwtApi{
   iat:Number,
   exp:Number
 }
+

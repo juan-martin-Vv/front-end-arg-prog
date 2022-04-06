@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login, LoginFormTemplate } from 'src/app/Class/login';
@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/Service/token.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
 
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formService: ControlService,
+    private cd :ChangeDetectorRef
   ) {}
 
   goHome():void{
@@ -109,11 +110,13 @@ export class LoginComponent implements OnInit {
         window.sessionStorage.clear();
         this.log_eMsg = e;
         console.log(e);
+        this.cd.markForCheck()
       },
       () => {
         //console.log("nombre almacenado: " + this.tokenService.getUserName());
         this.isLogged = true;
         this.isLoggedFail = false;
+        this.cd.markForCheck()
       }
     );
 
@@ -133,12 +136,14 @@ export class LoginComponent implements OnInit {
         this.isRegisterFail = true;
         this.reg_eMsg = e.error;
         console.log("fail in onRegister");
+        this.cd.markForCheck()
       },
       () => {
         this.isRegister = true;
         this.isRegisterFail = false;
         console.log(`isRegister :${this.isRegister}`);
         this.loggin(new Login(nuevo_user.nombreUsuario, nuevo_user.password));
+        this.cd.markForCheck()
       }
     );
 

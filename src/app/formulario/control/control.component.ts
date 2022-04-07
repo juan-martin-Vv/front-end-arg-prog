@@ -11,6 +11,7 @@ import { ControlModel } from '../control-model';
     <label [attr.for]="etiquetas.key" class="form-label">{{etiquetas.label}}
     </label>
     <div [ngSwitch]="etiquetas.controlType" >
+
       <input  *ngSwitchCase="'label'"
         [formControlName]="etiquetas.key"
         [id]="etiquetas.key+formName"

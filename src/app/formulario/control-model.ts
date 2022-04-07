@@ -44,7 +44,12 @@ export class LabelForm extends ControlModel<string>
 }
 export class NullFieldForm extends ControlModel<string>
 {
-  override controlType ='nullField'
+  override controlType ='nullField';
+}
+export class EntradaFechas extends ControlModel<string>
+{
+  override controlType ='textbox';
+  override type ='date';
 }
 export enum restriccion{
   required='required',

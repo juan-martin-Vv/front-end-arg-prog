@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component,EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { Login2Component } from 'src/app/login2/login2.component';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
+import { ToastService } from 'src/app/toast/toast.service';
 
 @Component({
   selector: 'app-main',
@@ -25,11 +24,14 @@ export class MainComponent implements  OnInit{
     private miAuth:TokenService,
     private router: Router,
     private modalService: NgbModal,
-    private ruta: ActivatedRoute
+    private ruta: ActivatedRoute,
+    private toast:ToastService,
+    private cd:ChangeDetectorRef
   ) {
-    
+
    }
   printDate():void{
+
     let ms_per_day=1000*60*60*24;
     let creado=1648435844
     let expirado=1648439444
@@ -54,9 +56,9 @@ export class MainComponent implements  OnInit{
     this.ruta.params.subscribe(
       d=>{
         if (d['login']) {
-          this.modalService.open(Login2Component);  
+          this.modalService.open(Login2Component);
         }
-        
+
       }
     )
     this.printDate()
@@ -71,6 +73,7 @@ export class MainComponent implements  OnInit{
         console.log(e);
       },
       ()=>{
+        this.cd.markForCheck()
         this.dni_actual=dni;
         console.log("main dice dni a cargar:"+this.dni_actual);
         this.dniEmiter.emit(this.dni_actual);

@@ -23,7 +23,10 @@ import { ControlModel } from '../control-model';
         [formControlName]="etiquetas.key"
         [id]="etiquetas.key+formName"
         [type]="etiquetas.type"
-        [ngClass]="etiquetas.required?( isValid? 'form-control is-valid':'form-control is-invalid'):'form-control'">
+        [ngClass]="etiquetas.required?
+        (form.untouched?  'form-control' :( isValid? 'form-control is-valid':'form-control is-invalid' ))
+        : 'form-control'"
+        >
       <select *ngSwitchCase="'dropdown'" [formControlName]="etiquetas.key" [id]="etiquetas.key">
         <option *ngFor="let opcion of etiquetas.options" [value]="opcion.key">{{opcion.value}}</option>
       </select>
@@ -63,7 +66,7 @@ export class ControlComponent implements OnInit {
         // console.log(' keyError: ' + keyError + ', value: ' + controlErrors[keyError]);
         this.etiquetas.restricciones.forEach(res => {
           if (res.restriccion.includes(keyError)) {
-            errores=[...errores,res.errores||keyError]
+            errores = [...errores, res.errores || keyError]
             //errores.push(res.errores || keyError);
           }
         })

@@ -10,10 +10,10 @@
     <div class="card-body">
       <div class="d-flex">
         <h4 class="flex-fill m-auto">{{tituloProyectos}}</h4>
-        <button type="button" [hidden]="false" class="btn btn-success" data-bs-toggle="modal"
+        <button type="button" [hidden]="!admin" class="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#proyectDash"><span class="text-lg-center">+</span> </button>
       </div>
-      <app-proyect-unit *ngFor="let proyect of proyDto " [proyDto]="proyect" [isAdmin]="admin" (outForm)="actualizar($event)"></app-proyect-unit>
+      <app-proyect-unit *ngFor="let proyect of proyDto " [proyDto]="proyect" [isAdmin]="admin" (outSignal)="signal($event)"></app-proyect-unit>
     </div>
   </div>
   <!-- dash -->

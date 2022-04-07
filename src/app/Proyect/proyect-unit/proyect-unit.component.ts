@@ -1,77 +1,102 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProyectFromTemplate, ProyectoDTO } from 'src/app/Class/proyect-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
+import { ToastService } from 'src/app/toast/toast.service';
 
 
 @Component({
   selector: 'app-proyect-unit',
   templateUrl: './proyect-unit.component.html',
   styleUrls: ['./proyect-unit.component.css'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProyectUnitComponent implements OnInit,OnChanges {
+export class ProyectUnitComponent implements OnInit {
 
- /* @Input()
-  misProyectos!:ProyectClass;*/
   @Input()
-  proyDto!:ProyectoDTO;
+  proyDto!: ProyectoDTO;
   @Input()
-  isAdmin!:boolean;
+  isAdmin!: boolean;
   //
-  @Output()  outForm:EventEmitter<FormGroup>=new EventEmitter<FormGroup>();
-
+  @Output() outSignal: EventEmitter<number> = new EventEmitter<number>();
+  //
   proyectForm!: FormGroup;
-  proyectFormLabes: ControlModel<String>[]=ProyectFromTemplate;
+  proyectFormLabes: ControlModel<String>[] = ProyectFromTemplate;
   //
-  butonId:String='proyect';
+  butonId: String = 'proyectID';
   //
-  errorMsg!:String;
+  errorMsg!: String;
   constructor(
-    private formService:ControlService,
-    private miApi:InyectorDataService
+    private formService: ControlService,
+    private miApi: InyectorDataService,
+    private cd: ChangeDetectorRef,
+    private toastService: ToastService
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.proyectForm=this.formService.toFromGroup(this.proyectFormLabes);
-    // this.proyectForm.setValue(this.proyDto);
-    // console.log(this.proyectForm.getRawValue());
-
-  }
   ngOnInit(): void {
-    this.proyectForm=this.formService.toFromGroup(this.proyectFormLabes);
+    this.proyectForm = this.formService.toFromGroup(this.proyectFormLabes);
     this.proyectForm.setValue(this.proyDto);
-    console.log(this.proyectForm.getRawValue());
-    this.butonId=this.butonId.concat(this.proyDto.id?.toString()||'1');//se generan id para todos lo modales
+    if (!this.isAdmin) //no se puede editar si no es admin
+    {
+      this.proyectForm.disable()
+      //console.log('form disable')
+    }
+    //console.log(this.proyectForm.getRawValue());
+    //se generan id para todos lo modales
+    this.butonId = this.butonId.concat(this.proyDto.id?.toString() || '1');
   }
-  editar():void{
+  deshacer():void{
+    this.proyectForm = this.formService.toFromGroup(this.proyectFormLabes);
+    this.proyectForm.setValue(this.proyDto);
+    //console.log('cerrear task()')
+  }
+  isValid():boolean{
+    return this.proyectForm.valid;
+  }
+  editar(): void {
     if (this.isAdmin) {
       this.miApi.editarProyectos(<ProyectoDTO>this.proyectForm.getRawValue())
-      .subscribe(
-        d=>{
-          this.proyDto=d;
-          console.log("actualizado :",d.id);
-        },
-        e=>{
-          this.errorMsg=e
-        },
-        ()=>{
-          this.outForm.emit(this.proyectForm);
-        }
+        .subscribe(
+          d => {
+            this.proyDto = d;
+            //console.log("actualizado :", d.id);
+          },
+          e => {
+            this.errorMsg = e
+            this.toastService.danger('Error :' + e);
+            this.cd.markForCheck();
+          },
+          () => {
+            this.toastService.succes('Se edito correctamente: ' + this.proyDto.nombre);
+            this.proyectForm = this.formService.toFromGroup(this.proyectFormLabes);
+            this.proyectForm.setValue(this.proyDto);
+            this.cd.markForCheck();
+          }
         )
     }
   }
-  borrar():void{
-    if (this.isAdmin) {
 
-        this.miApi.borrarProyectos(this.proyDto.id||-1)
+  borrar(): void {
+    let data: ProyectoDTO;
+    if (this.isAdmin) {
+      this.miApi.borrarProyectos(this.proyDto.id || -1)
         .subscribe(
-          d=>{
+          d => {
             this.proyectForm.reset();
-            this.proyDto=this.proyectForm.getRawValue();
+            data = d
+            console.log('brrado')
+            this.toastService.danger('Se borro correctamente: ' + data.nombre);
+            this.cd.markForCheck();
           },
-          e=>{this.errorMsg=e}
+          e => {
+            this.errorMsg = e
+            this.toastService.danger('Error :' + e);
+          },
+          () => {
+            this.outSignal.emit(data.id || -1) // se emitio un peticion al servidor
+            this.cd.markForCheck();
+          }
         )
     }
   }

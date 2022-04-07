@@ -29,6 +29,7 @@ import { ErrorHandlerProvider } from './Service/Interceptor/golbal-error-handler
 import 'zone.js/dist/zone.api.extensions';
 import { Login2Component } from './login2/login2.component';
 import { NoFoundComponent } from './no-found/no-found.component';
+import { ToastModule } from './toast/toast.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NoFoundComponent } from './no-found/no-found.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ToastModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormularioModule

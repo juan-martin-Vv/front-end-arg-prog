@@ -119,7 +119,8 @@ export class InterceptorService implements HttpInterceptor {
           switch (error.status) {
             case 400:
               handled=true;
-              return throwError(error.message); //devuelvo el mensaje de API a componente
+              console.log(error)
+              return throwError(error.error); //devuelvo el mensaje de API a componente
             case 401:      //login
               if (this.refresToken(error)) { //tomo la respuesta y verifico si hay refrest
                 inReq = this.addToken(inReq, this.tokenService.getToken());
@@ -135,7 +136,7 @@ export class InterceptorService implements HttpInterceptor {
               break;
             case 0:
               //this.router.navigateByUrl("/");
-              this.router.navigate(['/erro'],{queryParams:{on:true} });
+              //this.router.navigate(['/erro'],{queryParams:{on:true} });
               //this.router.navigate(['/results'], { queryParams: { page: 1 } });
               console.log(`ERR_CONNECTION_REFUSED`);
               handled = true;

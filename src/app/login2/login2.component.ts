@@ -13,7 +13,7 @@ import { TokenService } from '../Service/token.service';
   selector: 'app-login2',
   templateUrl: './login2.component.html',
   styleUrls: ['./login2.component.css'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Login2Component implements OnInit {
 
@@ -32,12 +32,7 @@ export class Login2Component implements OnInit {
   onLoginVar: boolean = false;
   onRegVar: boolean = false;
   //
-  // nombre!: String;
-  // nombreUsuario!: String;
-  // password!: String;
-  // email!: String;
-  //
-  closeResult!:String;
+  closeResult!: String;
   //
   loginFormLabes: ControlModel<String>[] = LoginFormTemplate;
   loginForm!: FormGroup;
@@ -49,11 +44,11 @@ export class Login2Component implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formService: ControlService,
-    private cd:ChangeDetectorRef,
+    private cd: ChangeDetectorRef,
     //
-    public activeModal:NgbActiveModal
-  ) {}
-  goHome():void{
+    public activeModal: NgbActiveModal
+  ) { }
+  goHome(): void {
     this.activeModal.close()
     this.router.navigate(['/']);
   }
@@ -69,21 +64,17 @@ export class Login2Component implements OnInit {
     this.loginForm = this.formService.toFromGroup(this.loginFormLabes);
     this.nuevoUsurioForm = this.formService.toFromGroup(this.nuevoUsurioFormLabel);
   }
-
   onLogin(): void {
     this.onLoginVar = true;
     this.onRegVar = false;
-    //
     this.isLoggedFail = false;
     this.loginForm.reset();
   }
   onReg(): void {
-    
     this.onRegVar = true;
     this.onLoginVar = false;
-    //
     this.isRegisterFail = false;
-    
+    this.nuevoUsurioForm.reset();
   }
   loggin(loginUserIn?: Login) {
     let login: Login;
@@ -91,65 +82,48 @@ export class Login2Component implements OnInit {
     this.isLoggedFail = false;
     if (loginUserIn != null) {
       this.loginUser = loginUserIn;
-      console.log("if login");
-      console.log(this.loginUser);
     }
-
     else {
       login = <Login>this.loginForm.getRawValue();
       this.loginUser = new Login(login.nombreUsuario, login.password);
       console.log("else login nomb: " + login.nombreUsuario + " pass: " + login.password);
     }
-
-
     this.authService.loginUser(this.loginUser).subscribe(
       d => {
-
-        //
         this.tokenService.setToken(d.token);
-
       },
       e => {
         this.isLogged = false;
         this.isLoggedFail = true;
         window.sessionStorage.clear();
         this.log_eMsg = e;
-        console.log(e);
         this.cd.markForCheck()
       },
       () => {
-        //console.log("nombre almacenado: " + this.tokenService.getUserName());
         this.isLogged = true;
         this.isLoggedFail = false;
+        this.cd.markForCheck()
       }
     );
-
   }
   onRegister(): void {
     let nuevo_user: NuevoUsuario;
-
     nuevo_user = <NuevoUsuario>this.nuevoUsurioForm.getRawValue(); //formulario ya validado
-    //this.nuevoUser = new NuevoUsuario(this.nombre, this.nombreUsuario, this.password, this.email);
     this.authService.nuevoUser(nuevo_user).subscribe(
-      d => {
-
-        console.log("good register")
-      },
+      d => {},
       e => {
         this.isRegister = false;
         this.isRegisterFail = true;
         this.reg_eMsg = e;
-        console.log("fail in onRegister :"+this.reg_eMsg);
         this.cd.markForCheck()
       },
       () => {
         this.isRegister = true;
         this.isRegisterFail = false;
-        console.log(`isRegister :${this.isRegister}`);
+        this.cd.markForCheck()
+        //pasamos los datos para habilitar el login despues de un reg exitoso
         this.loggin(new Login(nuevo_user.nombreUsuario, nuevo_user.password));
       }
     );
-    
   }
-
 }

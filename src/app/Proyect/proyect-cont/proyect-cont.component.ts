@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProyectFromTemplate, ProyectoDTO } from 'src/app/Class/proyect-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
+import { ToastService } from 'src/app/toast/toast.service';
 
 @Component({
   selector: 'app-proyect-cont',
@@ -21,29 +22,46 @@ export class ProyectContComponent implements OnInit ,OnChanges{
   saveProyectForm!:FormGroup;
   saveProyectFormLabes:ControlModel<String>[]=ProyectFromTemplate;
   //
+  chilSing!:boolean;
   constructor(
     private miApi:InyectorDataService,
     private miFromServic:ControlService,
-    private tokenService:TokenService
+    private tokenService:TokenService,
+    private cd:ChangeDetectorRef,
+    private toast:ToastService
     ) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("proyect dice: "+changes.dni_actual.currentValue);
+    //console.log("proyect dice: "+changes.dni_actual.currentValue);
+    this.getData();
+  }
+  private getData():void{
     if(this.dni_actual!=null&&this.dni_actual!=0)
     this.miApi.cargarProyectos(this.dni_actual).subscribe(
       d=>{
         this.proyDto=d;
-        console.log("proyect dice :"+this.dni_actual);
       },
       e=>{
-        throw e;
+        this.toast.show('Error :'+e)
       },
       ()=>{
         this.admin=this.tokenService.isAdmin();
+        this.cd.markForCheck()
       }
     );
   }
-  actualizar(d:FormGroup){
-
+  iniciaForm(){
+    this.saveProyectForm.reset();
+  }
+  signal(inSingal: number):void{
+    let array:ProyectoDTO[]=[];
+    console.log('signal :'+inSingal)
+    this.proyDto.forEach( d=>{
+      if (d.id!=inSingal) {
+        array=[...array,d]
+      }
+    })
+    this.proyDto=array;
+    this.cd.markForCheck();
   }
 
   guardar():void{
@@ -54,15 +72,23 @@ export class ProyectContComponent implements OnInit ,OnChanges{
         .subscribe(
           d=>{
             this.proyDto.push(d);
+            this.toast.succes("Se guardo correctamente :"+d.nombre)
           },
-          e=>{}
+          e=>{
+            this.toast.danger('Se produjo un error : '+e)
+          },
+          ()=>{
+            this.saveProyectForm.reset();
+            this.saveProyectForm.markAsUntouched();
+            this.saveProyectForm.clearValidators();
+            this.cd.markForCheck()
+          }
         )
     }
   }
-  //
+
   ngOnInit(): void {
     this.saveProyectForm=this.miFromServic.toFromGroup(this.saveProyectFormLabes);
-    this.proyDto.push();
   }
   proyDto:ProyectoDTO[]=[];
   tituloProyectos:String="Proyectos encarados";

@@ -24,4 +24,5 @@ export class HeaderBarComponent implements OnInit {
   login2(){
     const login=this.modal.open(Login2Component);
   }
+  editAbout(){}
 }

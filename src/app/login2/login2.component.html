@@ -69,7 +69,7 @@
                 Por Favor Registrate <span class="fa fa-bell "></span>
               </ng-template>
             </button>
-            <button type="button" class="btn btn-secondary m-1"
+            <button type="button" class="btn btn-secondary m-1"data-bs-dismiss="modal"
               (click)="goHome()">Close</button>
             <div [hidden]="!isRegisterFail" class="alert-danger text-center m-1">{{reg_eMsg}}</div>
           </div>

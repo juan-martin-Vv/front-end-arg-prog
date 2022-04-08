@@ -11,13 +11,13 @@
       <div class="d-flex">
         <h4 class="flex-fill m-auto">{{titulo}}</h4>
         <button type="button" [hidden]="!admin" class="btn btn-success" data-bs-toggle="modal"
-          data-bs-target="#proyectDash"><span class="text-lg-center">+</span> </button>
+          data-bs-target="#expDash"><span class="text-lg-center">+</span> </button>
       </div>
       <app-experency-unit *ngFor="let unitDto of Dto " [Dto]="unitDto" [isAdmin]="admin" (outSignal)="signal($event)"></app-experency-unit>
     </div>
   </div>
   <!-- dash -->
-  <div class="modal fade" id="proyectDash" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
+  <div class="modal fade" id="expDash" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <app-dashboard>
       <div name="titulo" class="d-block">Editar {{titulo}} </div>

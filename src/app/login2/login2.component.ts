@@ -49,8 +49,9 @@ export class Login2Component implements OnInit {
     public activeModal: NgbActiveModal
   ) { }
   goHome(): void {
+    this.router.navigateByUrl('/')
     this.activeModal.close()
-    this.router.navigate(['/']);
+    this.cd.detectChanges();
   }
   //
   ngOnInit(): void {

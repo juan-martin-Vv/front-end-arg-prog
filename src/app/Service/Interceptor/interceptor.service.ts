@@ -126,9 +126,9 @@ export class InterceptorService implements HttpInterceptor {
                 inReq = this.addToken(inReq, this.tokenService.getToken());
                 return next.handle(inReq)
               }
-              this.router.navigate(['/login',{login:'on'}]);
-              handled = true;
-              break;
+              this.tokenService.logout();
+              this.router.navigateByUrl("/?login=on");
+              return throwError('error session caducada')
             case 403:     //forbidden
               this.router.navigateByUrl("/");
               console.log(`redirect to login`);

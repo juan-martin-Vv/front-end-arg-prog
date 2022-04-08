@@ -1,3 +1,4 @@
+<p>login 2</p>
 <div class="d-flex modal-header">
   <div>
     <h5 class="modal-title">{{titulo}}</h5>
@@ -41,7 +42,7 @@
               Por Favor inicia session <span class="fa fa-bell "></span>
             </ng-template>
           </button>
-          <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal" (click)="goHome()" >Close</button>
+          <button type="button" class="btn btn-secondary m-1" (click)="goHome()" >Close</button>
           <div class="alert-danger text-center m-1" [hidden]="!isLoggedFail">{{log_eMsg.toString()}}</div>
         </div>
       </div>
@@ -69,7 +70,7 @@
                 Por Favor Registrate <span class="fa fa-bell "></span>
               </ng-template>
             </button>
-            <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal"
+            <button type="button" class="btn btn-secondary m-1"
               (click)="goHome()">Close</button>
             <div [hidden]="!isRegisterFail" class="alert-danger text-center m-1">{{reg_eMsg}}</div>
           </div>

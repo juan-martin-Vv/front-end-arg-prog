@@ -41,24 +41,27 @@ export class MainComponent implements  OnInit{
     // 1649200454287
     // 761366212
     let ahora=Date.now()
-    console.log(new Date(creado*1000))
-    console.log(new Date(expirado*1000))
-    console.log(new Date(ahora))
-  console.log('tiempo en number: '+new Date(Date.now()).valueOf());
-    if (expirado<ahora) {
-      console.log('token expirado hacia :')
-      console.log((ahora-(expirado*1000))/1000*60*60)
+  //   console.log(new Date(creado*1000))
+  //   console.log(new Date(expirado*1000))
+  //   console.log(new Date(ahora))
+  // console.log('tiempo en number: '+new Date(Date.now()).valueOf());
+  //   if (expirado<ahora) {
+  //     console.log('token expirado hacia :')
+  //     console.log((ahora-(expirado*1000))/1000*60*60)
 
-  console.log(new Date(ahora-expirado*1000))
-    }
+  // console.log(new Date(ahora-expirado*1000))
+    //}
   }
+
   ngOnInit(): void {
-    this.ruta.params.subscribe(
+    this.ruta.queryParams.subscribe(
       d=>{
-        if (d['login']) {
+        if (d['login']=='on') {
+          console.log('login on?')
+          this.router.navigateByUrl('/');
           this.modalService.open(Login2Component);
         }
-
+        this.cd.markForCheck();
       }
     )
     this.printDate()
@@ -83,6 +86,4 @@ export class MainComponent implements  OnInit{
     );
 
   }
-
-
 }

@@ -29,7 +29,7 @@
           Launch demo modal
         </button>-->
         <!-- <button type="button" class="btn btn-primary"  *ngIf="isAdmin||true" (click)="login2()"><i class="fa fa-gears"></i></button> -->
-        <button type="button" class="btn btn-primary m-1"  (click)="gotoLogin()">login</button>
+        <button type="button" class="btn btn-primary m-1"  [routerLink]="['/']" [queryParams]="{login:'on'}">login</button>
         <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin" (click)="editAbout()"><div><i class="fa fa-gears less"></i></div></button>
         <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" *ngIf="isAdmin||true">Edit</button> -->
       </div>

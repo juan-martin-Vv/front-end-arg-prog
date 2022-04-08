@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component,EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component,EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Login2Component } from 'src/app/login2/login2.component';
@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/toast/toast.service';
   styleUrls: ['./main.component.css'],
   changeDetection:ChangeDetectionStrategy.Default
 })
-export class MainComponent implements  OnInit{
+export class MainComponent implements  OnInit,OnChanges{
   dni_actual!:number;
   @Output() dniEmiter: EventEmitter<number> =   new EventEmitter();
   is_admin!:boolean;
@@ -30,6 +30,10 @@ export class MainComponent implements  OnInit{
   ) {
 
    }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadPerfirl();
+    console.log('cambios en main!!!')
+  }
   printDate():void{
 
     let ms_per_day=1000*60*60*24;
@@ -61,15 +65,23 @@ export class MainComponent implements  OnInit{
           this.router.navigateByUrl('/');
           this.modalService.open(Login2Component);
         }
-        this.cd.markForCheck();
+        if (d['reload']=='on') {
+          console.log('reload on');
+          this.dniEmiter.emit(this.dni_actual);
+          this.router.navigateByUrl('/');
+          this.loadPerfirl()
+        }
+        this.cd.detectChanges();
       }
     )
     this.printDate()
+    this.loadPerfirl()
+  }
+  private loadPerfirl(){
     let dni:number=0;
     this.miServicio.cargarPerfil().subscribe(
       d=>{
         dni=d.dni;
-
       },
       e=>{
         console.log("main dice error: ");
@@ -78,12 +90,11 @@ export class MainComponent implements  OnInit{
       ()=>{
         this.cd.markForCheck()
         this.dni_actual=dni;
-        console.log("main dice dni a cargar:"+this.dni_actual);
+        console.log("main dice dni a cargar: "+this.dni_actual);
         this.dniEmiter.emit(this.dni_actual);
         this.is_admin=this.miAuth.isAdmin();
         this.adminEmiter.emit(this.is_admin);
       }
     );
-
   }
 }

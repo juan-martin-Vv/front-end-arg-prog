@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ExperencyClass, ExperiencaFromTemplate, ExperienciaDTO } from 'src/app/Class/experency-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
@@ -28,10 +29,11 @@ export class ExperencyContComponent implements OnInit, OnChanges {
     private miFromServic:ControlService,
     private tokenService:TokenService,
     private cd:ChangeDetectorRef,
-    private toast:ToastService
+    private toast:ToastService,
+    private router:Router
     ) { }
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log("proyect dice: "+changes.dni_actual.currentValue);
+    console.log("proyect dice: "+changes.dni_actual.currentValue);
     this.getData();
   }
   private getData():void{
@@ -78,6 +80,7 @@ export class ExperencyContComponent implements OnInit, OnChanges {
           },
           e=>{
             this.toast.danger('Se produjo un error : '+e)
+            this.router.navigateByUrl('/')
           },
           ()=>{
             this.saveForm.reset();

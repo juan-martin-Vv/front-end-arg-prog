@@ -49,9 +49,8 @@ export class Login2Component implements OnInit {
     public activeModal: NgbActiveModal
   ) { }
   goHome(): void {
-    this.router.navigateByUrl('/')
+    //this.router.navigateByUrl('/?reload=on')
     this.activeModal.close()
-    this.cd.detectChanges();
   }
   //
   ngOnInit(): void {
@@ -60,7 +59,6 @@ export class Login2Component implements OnInit {
       this.isLoggedFail = false;
       this.isRegister = false;
       this.isRegisterFail = false;
-
     }
     this.loginForm = this.formService.toFromGroup(this.loginFormLabes);
     this.nuevoUsurioForm = this.formService.toFromGroup(this.nuevoUsurioFormLabel);
@@ -98,11 +96,12 @@ export class Login2Component implements OnInit {
         this.isLoggedFail = true;
         window.sessionStorage.clear();
         this.log_eMsg = e;
-        this.cd.markForCheck()
+        this.cd.detectChanges()
       },
       () => {
         this.isLogged = true;
         this.isLoggedFail = false;
+        this.router.navigateByUrl('/?reload=on')
         this.cd.markForCheck()
       }
     );

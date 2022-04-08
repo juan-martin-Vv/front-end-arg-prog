@@ -3,7 +3,6 @@ import { Buffer } from 'buffer';
 
 const TOKEN_KEY = "AUTH_TOKEN_IN";
 const USER_NAME = "AUTH_USER_NAME_IN";
-const AUTHORITYS = "AUTH_AUTHORITYS_IN";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ const AUTHORITYS = "AUTH_AUTHORITYS_IN";
 export class TokenService {
   roles: Array<String> = [];
   constructor() { }
-  
+
   public setToken(token: String): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token.toString());
@@ -35,15 +34,15 @@ export class TokenService {
     let rol: autoridad[];
     let raw!:String;
     let body:jwtApi;
-    if (!token.includes("no TOKEN key storage")) 
+    if (!token.includes("no TOKEN key storage"))
     {
         raw=token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
         raw=Buffer.from(raw.toString(),'base64').toString('binary');//decoficamos
-        console.log(raw);
+        //console.log(raw);
         //
         body=JSON.parse(raw.toString());
         rol = body.privilegios;
-        console.log(rol);
+        //console.log(rol);
         rol?.forEach((e) => { this.roles.push(e.authority) });
     }
     console.log("roles:");
@@ -60,6 +59,7 @@ export class TokenService {
       console.log("ADMIN detectado...")
       return true;
     }
+    console.log("USER detectado...")
     return is_admin;
   }
   public isExpired():boolean{
@@ -69,20 +69,20 @@ export class TokenService {
     let raw!:String;
     let body:jwtApi;
     let ixpiredDate:Date;
-    if (!token.includes("no TOKEN key storage")) 
+    if (!token.includes("no TOKEN key storage"))
     {
         raw=token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
         raw=Buffer.from(raw.toString(),'base64').toString('binary');//decoficamos
-        console.log(raw);
+        //console.log(raw);
         //
         body=JSON.parse(raw.toString());
         //rol = body.privilegios;
         //console.log(rol);
         //rol?.forEach((e) => { this.roles.push(e.authority) });
         ixpiredDate=new Date(body.exp.valueOf());
-        console.log(ixpiredDate.getUTCMilliseconds());
+        //console.log(ixpiredDate.getUTCMilliseconds());
     }
-    console.log("roles:");
+    //console.log("roles:");
     //console.log(this.roles);
     return true;
   }

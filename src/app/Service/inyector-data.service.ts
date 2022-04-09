@@ -14,7 +14,7 @@ let per: PerfilDTO = new PerfilDTO();
 export class InyectorDataService {
 
 
-  
+  public dni_event$!:Observable<number>;
   constructor(private miConexion: ConectorRestService) {
   }
   //////// carga por default

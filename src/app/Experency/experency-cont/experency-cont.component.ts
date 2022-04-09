@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExperencyClass, ExperiencaFromTemplate, ExperienciaDTO } from 'src/app/Class/experency-class';
@@ -11,12 +11,13 @@ import { ToastService } from 'src/app/toast/toast.service';
 @Component({
   selector: 'app-experency-cont',
   templateUrl: './experency-cont.component.html',
-  styleUrls: ['./experency-cont.component.css']
+  styleUrls: ['./experency-cont.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ExperencyContComponent implements OnInit, OnChanges {
+export class ExperencyContComponent implements OnInit {
 
   @Input()
-  dni_actual!:number;
+  dni_actual:number=0;
   //
   admin!:boolean;
   //
@@ -32,8 +33,14 @@ export class ExperencyContComponent implements OnInit, OnChanges {
     private toast:ToastService,
     private router:Router
     ) { }
+  // ngDoCheck(): void {
+  //   if (this.dni_actual==1) {
+  //     console.log('do check')
+  //   }
+   
+  //}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("proyect dice: "+changes.dni_actual.currentValue);
+    console.log("changes experiencia dice: "+changes.dni_actual.currentValue);
     this.getData();
   }
   private getData():void{
@@ -41,14 +48,14 @@ export class ExperencyContComponent implements OnInit, OnChanges {
     this.miApi.cargarExperiencia(this.dni_actual).subscribe(
       d=>{
         this.Dto=d;
+        this.admin=this.tokenService.isAdmin();
+        this.cd.markForCheck()
       },
       e=>{
         this.toast.show('Error :'+e)
-      },
-      ()=>{
-        this.admin=this.tokenService.isAdmin();
-        this.cd.markForCheck()
-      }
+      }             
+      
+      
     );
   }
   iniciaForm(){
@@ -93,7 +100,9 @@ export class ExperencyContComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log('experiencia on!')
     this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
+    this.getData()
   }
   Dto: ExperienciaDTO[] = [];
   titulo: String = "Experiencia Laboral";

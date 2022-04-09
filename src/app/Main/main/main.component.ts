@@ -10,9 +10,9 @@ import { ToastService } from 'src/app/toast/toast.service';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  changeDetection:ChangeDetectionStrategy.Default
+  //changeDetection:ChangeDetectionStrategy.Default
 })
-export class MainComponent implements  OnInit,OnChanges{
+export class MainComponent implements  OnInit{
   dni_actual!:number;
   @Output() dniEmiter: EventEmitter<number> =   new EventEmitter();
   is_admin!:boolean;
@@ -30,10 +30,7 @@ export class MainComponent implements  OnInit,OnChanges{
   ) {
 
    }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadPerfirl();
-    console.log('cambios en main!!!')
-  }
+  
   printDate():void{
 
     let ms_per_day=1000*60*60*24;
@@ -45,7 +42,7 @@ export class MainComponent implements  OnInit,OnChanges{
     // 1649200454287
     // 761366212
     let ahora=Date.now()
-  //   console.log(new Date(creado*1000))
+     console.log(new Date(creado*1000))
   //   console.log(new Date(expirado*1000))
   //   console.log(new Date(ahora))
   // console.log('tiempo en number: '+new Date(Date.now()).valueOf());
@@ -67,11 +64,10 @@ export class MainComponent implements  OnInit,OnChanges{
         }
         if (d['reload']=='on') {
           console.log('reload on');
-          this.dniEmiter.emit(this.dni_actual);
           this.router.navigateByUrl('/');
+          this.dni_actual=0;
           this.loadPerfirl()
         }
-        this.cd.detectChanges();
       }
     )
     this.printDate()
@@ -82,18 +78,20 @@ export class MainComponent implements  OnInit,OnChanges{
     this.miServicio.cargarPerfil().subscribe(
       d=>{
         dni=d.dni;
+        
+        this.dni_actual=dni;
+        console.log("main dice dni a cargar: "+this.dni_actual);
+        this.dniEmiter.emit(this.dni_actual);
+        this.is_admin=this.miAuth.isAdmin();
+        this.adminEmiter.emit(this.is_admin);
+        this.cd.markForCheck()
       },
       e=>{
         console.log("main dice error: ");
         console.log(e);
       },
       ()=>{
-        this.cd.markForCheck()
-        this.dni_actual=dni;
-        console.log("main dice dni a cargar: "+this.dni_actual);
-        this.dniEmiter.emit(this.dni_actual);
-        this.is_admin=this.miAuth.isAdmin();
-        this.adminEmiter.emit(this.is_admin);
+        
       }
     );
   }

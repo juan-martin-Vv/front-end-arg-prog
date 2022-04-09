@@ -20,6 +20,7 @@ export class ProyectContComponent implements OnInit ,OnChanges{
   //
   admin!:boolean;
   //
+  //
   saveProyectForm!:FormGroup;
   saveProyectFormLabes:ControlModel<String>[]=ProyectFromTemplate;
   //
@@ -92,6 +93,7 @@ export class ProyectContComponent implements OnInit ,OnChanges{
   }
 
   ngOnInit(): void {
+    console.log('proyect on!')
     this.saveProyectForm=this.miFromServic.toFromGroup(this.saveProyectFormLabes);
   }
   proyDto:ProyectoDTO[]=[];

@@ -2,9 +2,9 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators'
+import { catchError, map, retry } from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
-import { TokenService } from '../token.service';
+import { NO_TOKEN, TokenService } from '../token.service';
 import { GolbalErrorHandlerService as errorHttp } from './golbal-error-handler.service';
 
 @Injectable({
@@ -17,29 +17,23 @@ export class InterceptorService implements HttpInterceptor {
     private router: Router) { }
   url: String = environment.URL_API.concat('auth/login')
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let inReq = req;
-    if (inReq.method == 'GET') { //metodos get pasan sin mas
-      return next.handle(inReq).pipe(catchError(
-        (e:HttpResponse<any>)=> {return this.errorHandler(e, inReq,next);
-        }));
-    }
-    if (inReq.method == 'POST') {
-      console.log('metodo post');
-      if (inReq.url.endsWith('auth/login')) {
-        return next.handle(inReq).pipe(catchError(
-          (e:HttpResponse<any>)=> {return this.errorHandler(e, inReq,next);}));
-      }
-    }
+    let inReq = req.clone();
+
 
     const token = this.tokenService.getToken();
     console.log("interceptor")
-    if (token != null && !token.startsWith("no TOKEN")) {
-      inReq = this.addToken(req, token);
+    if (token != null && !token.startsWith(NO_TOKEN)) {
+      if (!inReq.url.endsWith('/login')) {
+        inReq = this.addToken(req, token);
+      }
       //inReq=req.clone({headers:req.headers.set("Authorization","Bearer "+token)});
       console.log("Authorization passing");
     }
-    return next.handle(inReq).pipe(catchError(
-      (e:HttpResponse<any>)=> {return this.errorHandler(e, inReq,next);}
+    return next.handle(inReq).pipe(
+      catchError(
+      (e:HttpErrorResponse)=> {
+        return this.errorHandler(e, inReq,next);
+      }
     ));
   }
 
@@ -96,42 +90,52 @@ export class InterceptorService implements HttpInterceptor {
     });
   }
   //
-  refresToken(req: HttpResponse<any>): boolean {
+  refresToken(req: HttpErrorResponse): boolean {
     let tokenRefres: string;
-    if (req.headers.has('Authorization-r')) {
-      tokenRefres = req.headers.get('Authorization-r')?.split(' ')[1].toString() || ' ';
+    //console.log('refrestoken :'+req.headers.get('Autorization-r'))
+    if (req.headers.has('Autorization-r')) {
+      //console.log('data :'+data)
+      tokenRefres= req.headers.get('Autorization-r')?.split(' ')[1] || NO_TOKEN;
+      //console.log('token :'+tokenRefres)
       this.tokenService.setToken(tokenRefres);//nuevo token refrescado
-      return true;
+      if (!tokenRefres.startsWith(NO_TOKEN)) {    // token valido
+        return true;
+      }
     }
     return false;
   }
   //
-  errorHandler(error: HttpResponse<any>,inReq:HttpRequest<any>,next:HttpHandler)
+  errorHandler(error: HttpErrorResponse,inReq:HttpRequest<any>,next:HttpHandler)
   {
     //  => {
       let handled: boolean = false;
       //console.error(error);
       if (error instanceof HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-          console.error("Error Event");
+          //console.error("Error Event");
         } else {
           console.log(`error status : ${error.status} ${error.statusText} a pedido de ${inReq.url}`);
           switch (error.status) {
             case 400:
               handled=true;
-              console.log(error)
+              //console.log(error)
               return throwError(error.error); //devuelvo el mensaje de API a componente
             case 401:      //login
+              console.log('refress :'+this.refresToken(error))
+              //console.log(error.error);
               if (this.refresToken(error)) { //tomo la respuesta y verifico si hay refrest
+                console.log('refrescando')
+
+
                 inReq = this.addToken(inReq, this.tokenService.getToken());
-                return next.handle(inReq)
-              }
-              this.tokenService.logout();
-              this.router.navigateByUrl("/?login=on");
+                return next.handle(inReq) // reintentamos con un nuevo token
+                }
+
+              this.router.navigateByUrl('/?login=off');
               return throwError('error session caducada')
             case 403:     //forbidden
-              this.router.navigateByUrl("/");
-              console.log(`redirect to login`);
+              this.router.navigateByUrl("/erro");
+              //console.log(`redirect to login`);
               handled = true;
               break;
             case 0:

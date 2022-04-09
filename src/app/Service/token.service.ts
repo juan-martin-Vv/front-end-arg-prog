@@ -3,6 +3,7 @@ import { Buffer } from 'buffer';
 
 const TOKEN_KEY = "AUTH_TOKEN_IN";
 const USER_NAME = "AUTH_USER_NAME_IN";
+export const NO_TOKEN = 'no TOKEN key storage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,34 +17,33 @@ export class TokenService {
     window.sessionStorage.setItem(TOKEN_KEY, token.toString());
   }
   public getToken(): String {
-    let l = window.sessionStorage.getItem(TOKEN_KEY) || "no TOKEN key storage";
+    let l = window.sessionStorage.getItem(TOKEN_KEY) || NO_TOKEN;
 
     return l.toString();
   }
   //
 
   public getUserName(): String {
-    let l = window.sessionStorage.getItem(USER_NAME) || "no USER key storage";
+    let l = window.sessionStorage.getItem(USER_NAME) || NO_TOKEN;
     return l.toString();
   }
   //
 
   public getAuthoritys(): String[] {
     this.roles = [];
-    let token:string = this.getToken().toString();
+    let token: string = this.getToken().toString();
     let rol: autoridad[];
-    let raw!:String;
-    let body:jwtApi;
-    if (!token.includes("no TOKEN key storage"))
-    {
-        raw=token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
-        raw=Buffer.from(raw.toString(),'base64').toString('binary');//decoficamos
-        //console.log(raw);
-        //
-        body=JSON.parse(raw.toString());
-        rol = body.privilegios;
-        //console.log(rol);
-        rol?.forEach((e) => { this.roles.push(e.authority) });
+    let raw!: String;
+    let body: jwtApi;
+    if (!token.includes(NO_TOKEN)) {
+      raw = token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
+      raw = Buffer.from(raw.toString(), 'base64').toString('binary');//decoficamos
+      //console.log(raw);
+      //
+      body = JSON.parse(raw.toString());
+      rol = body.privilegios;
+      //console.log(rol);
+      rol?.forEach((e) => { this.roles.push(e.authority) });
     }
     console.log("roles:");
     console.log(this.roles);
@@ -54,33 +54,31 @@ export class TokenService {
   }
   public isAdmin(): boolean {
     let is_admin: boolean = false;
-    if(this.getAuthoritys().indexOf('ROLL_ADMIN')>=0)
-    {
+    if (this.getAuthoritys().indexOf('ROLL_ADMIN') >= 0) {
       console.log("ADMIN detectado...")
       return true;
     }
     console.log("USER detectado...")
     return is_admin;
   }
-  public isExpired():boolean{
+  public isExpired(): boolean {
     //this.roles = [];
-    let token:string = this.getToken().toString();
+    let token: string = this.getToken().toString();
     //let rol: autoridad[];
-    let raw!:String;
-    let body:jwtApi;
-    let ixpiredDate:Date;
-    if (!token.includes("no TOKEN key storage"))
-    {
-        raw=token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
-        raw=Buffer.from(raw.toString(),'base64').toString('binary');//decoficamos
-        //console.log(raw);
-        //
-        body=JSON.parse(raw.toString());
-        //rol = body.privilegios;
-        //console.log(rol);
-        //rol?.forEach((e) => { this.roles.push(e.authority) });
-        ixpiredDate=new Date(body.exp.valueOf());
-        //console.log(ixpiredDate.getUTCMilliseconds());
+    let raw!: String;
+    let body: jwtApi;
+    let ixpiredDate: Date;
+    if (!token.includes(NO_TOKEN)) {
+      raw = token.split(".")[1];//token format eeee.yyyyyyy.zzzz [1]=yyyyyyy
+      raw = Buffer.from(raw.toString(), 'base64').toString('binary');//decoficamos
+      //console.log(raw);
+      //
+      body = JSON.parse(raw.toString());
+      //rol = body.privilegios;
+      //console.log(rol);
+      //rol?.forEach((e) => { this.roles.push(e.authority) });
+      ixpiredDate = new Date(body.exp.valueOf());
+      //console.log(ixpiredDate.getUTCMilliseconds());
     }
     //console.log("roles:");
     //console.log(this.roles);
@@ -104,11 +102,11 @@ interface autoridad {
 //   "iat": 1648435844,
 //   "exp": 1648439444
 //}
-interface jwtApi{
-  sub:String,
-  email:String,
-  privilegios:autoridad[],
-  iat:Number,
-  exp:Number
+interface jwtApi {
+  sub: String,
+  email: String,
+  privilegios: autoridad[],
+  iat: Number,
+  exp: Number
 }
 

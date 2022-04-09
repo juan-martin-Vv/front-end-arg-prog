@@ -82,9 +82,7 @@ export class EducationContComponent implements OnChanges {
             this.toast.danger('Se produjo un error : '+e)
           },
           ()=>{
-            this.saveForm.reset();
-            this.saveForm.markAsUntouched();
-            this.saveForm.clearValidators();
+            this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
             this.cd.markForCheck()
           }
         )

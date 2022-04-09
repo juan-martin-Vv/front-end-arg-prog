@@ -14,6 +14,7 @@ import { ToastService } from 'src/app/toast/toast.service';
 })
 export class MainComponent implements  OnInit{
   dni_actual!:number;
+  dni:number=0;
   @Output() dniEmiter: EventEmitter<number> =   new EventEmitter();
   is_admin!:boolean;
   @Output() adminEmiter: EventEmitter<boolean> = new EventEmitter();
@@ -30,7 +31,7 @@ export class MainComponent implements  OnInit{
   ) {
 
    }
-  
+
   printDate():void{
 
     let ms_per_day=1000*60*60*24;
@@ -58,7 +59,7 @@ export class MainComponent implements  OnInit{
     this.ruta.queryParams.subscribe(
       d=>{
         if (d['login']=='on') {
-          console.log('login on?')
+          console.log('login on?');
           this.router.navigateByUrl('/');
           this.modalService.open(Login2Component);
         }
@@ -66,10 +67,19 @@ export class MainComponent implements  OnInit{
           console.log('reload on');
           this.router.navigateByUrl('/');
           this.dni_actual=0;
+          this.dni_actual=this.dni;
           this.loadPerfirl()
+        }
+        if(d['login']=='off'){
+          console.log('login off');
+          this.miAuth.logout()
+          this.dni_actual=0;
+          this.is_admin=false;
+          this.router.navigateByUrl('/?login=on');
         }
       }
     )
+
     this.printDate()
     this.loadPerfirl()
   }
@@ -78,20 +88,18 @@ export class MainComponent implements  OnInit{
     this.miServicio.cargarPerfil().subscribe(
       d=>{
         dni=d.dni;
-        
-        this.dni_actual=dni;
-        console.log("main dice dni a cargar: "+this.dni_actual);
-        this.dniEmiter.emit(this.dni_actual);
-        this.is_admin=this.miAuth.isAdmin();
-        this.adminEmiter.emit(this.is_admin);
-        this.cd.markForCheck()
+
+
       },
       e=>{
         console.log("main dice error: ");
         console.log(e);
       },
       ()=>{
-        
+        this.dni_actual=dni;
+        console.log("main dice dni a cargar: "+this.dni_actual);
+        this.is_admin=this.miAuth.isAdmin();
+        this.cd.markForCheck()
       }
     );
   }

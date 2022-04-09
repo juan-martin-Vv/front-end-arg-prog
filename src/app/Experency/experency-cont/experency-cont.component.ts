@@ -37,7 +37,7 @@ export class ExperencyContComponent implements OnInit {
   //   if (this.dni_actual==1) {
   //     console.log('do check')
   //   }
-   
+
   //}
   ngOnChanges(changes: SimpleChanges): void {
     console.log("changes experiencia dice: "+changes.dni_actual.currentValue);
@@ -53,9 +53,9 @@ export class ExperencyContComponent implements OnInit {
       },
       e=>{
         this.toast.show('Error :'+e)
-      }             
-      
-      
+      }
+
+
     );
   }
   iniciaForm(){
@@ -90,9 +90,7 @@ export class ExperencyContComponent implements OnInit {
             this.router.navigateByUrl('/')
           },
           ()=>{
-            this.saveForm.reset();
-            this.saveForm.markAsUntouched();
-            this.saveForm.clearValidators();
+            this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
             this.cd.markForCheck()
           }
         )

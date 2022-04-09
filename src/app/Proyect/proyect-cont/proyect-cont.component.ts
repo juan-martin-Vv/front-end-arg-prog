@@ -83,9 +83,8 @@ export class ProyectContComponent implements OnInit ,OnChanges{
             this.router.navigateByUrl('/')
           },
           ()=>{
-            this.saveProyectForm.reset();
-            this.saveProyectForm.markAsUntouched();
-            this.saveProyectForm.clearValidators();
+            this.saveProyectForm=this.miFromServic.toFromGroup(this.saveProyectFormLabes);
+            //this.saveProyectForm.reset();
             this.cd.markForCheck()
           }
         )

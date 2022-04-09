@@ -35,7 +35,7 @@ export class ProyectContComponent implements OnInit ,OnChanges{
     ) { }
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log("proyect dice: "+changes.dni_actual.currentValue);
+    //console.log("proyect dice: "+changes.dni_actual.currentValue);
     this.getData();
   }
   private getData():void{
@@ -58,7 +58,7 @@ export class ProyectContComponent implements OnInit ,OnChanges{
   }
   signal(inSingal: number):void{
     let array:ProyectoDTO[]=[];
-    console.log('signal :'+inSingal)
+    //console.log('signal :'+inSingal)
     this.proyDto.forEach( d=>{
       if (d.id!=inSingal) {
         array=[...array,d]

@@ -85,7 +85,6 @@ export class ProyectUnitComponent implements OnInit {
           d => {
             this.proyectForm.reset();
             data = d
-            console.log('brrado')
             this.toastService.danger('Se borro correctamente: ' + data.nombre);
             this.cd.markForCheck();
           },

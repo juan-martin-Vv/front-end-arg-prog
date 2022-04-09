@@ -43,9 +43,9 @@ export class ExperencyUnitComponent implements OnInit {
       this.Form.disable()
       //console.log('form disable')
     }
-    console.log(this.Dto);
-    console.log('unit dto:')
-    console.log(this.Form.getRawValue());
+    //console.log(this.Dto);
+    //console.log('unit dto:')
+    //console.log(this.Form.getRawValue());
     //se generan id para todos lo modales
     this.butonId = this.butonId.concat(this.Dto.id?.toString() || '1');
   }

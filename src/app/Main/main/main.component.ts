@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component,EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigComponent } from 'src/app/About/config/config.component';
 import { Login2Component } from 'src/app/login2/login2.component';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
@@ -76,6 +77,11 @@ export class MainComponent implements  OnInit{
           this.dni_actual=0;
           this.is_admin=false;
           this.router.navigateByUrl('/?login=on');
+        }
+        if(d['about']=='on'){
+          console.log('login on?');
+          this.router.navigateByUrl('/');
+          this.modalService.open(ConfigComponent);
         }
       }
     )

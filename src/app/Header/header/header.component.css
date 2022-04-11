@@ -1,0 +1,13 @@
+.mostrador{
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: 100%;
+
+}
+.mostrador img {
+  display: block;
+  aspect-ratio: 16/9;
+  object-fit: contain;
+  width: 100%;
+}
+

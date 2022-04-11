@@ -1,12 +1,25 @@
 <div class="container-fluid p-0 ">
-  <div class="d-flex border border-1 border-dark flex-column min-vh-50 mb-0">
-    <div class="d-block bar">
-      <app-header-bar [isAdmin]="isAdmin" ></app-header-bar>
+  <div class="d-flex border border-1 border-dark flex-column  mb-0">
+    <div class="d-block">
+      <app-header-bar [isAdmin]="isAdmin"></app-header-bar>
     </div>
-    <div class="d-block border m-auto mt-0 mb-auto">
-      <div class="position-relative m-1">
-        <img src="../../../assets/APLogo-20-20.png" class="img-thumbnail"
-          style="background-color: blue; position: relative; display:block;">
+
+    <div class="d-block m-auto mt-0 mostrador ">
+      <div class="p-1">
+        <ng-container>
+          <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+            <div class="position-relative carousel-inner ">
+              <!-- <div class="carousel-item active ">
+                <img src="../../../assets/V4CQNELMTFE4DDFOY6SO2AATTE.jpg" alt="...">
+              </div> -->
+              <ng-container *ngFor="let image of images; index as count" >
+                <div [ngClass]="count==0? 'carousel-item active':'carousel-item'">
+                  <img [src]="image" alt="...">
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

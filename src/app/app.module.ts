@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +30,7 @@ import 'zone.js/dist/zone.api.extensions';
 import { Login2Component } from './login2/login2.component';
 import { NoFoundComponent } from './no-found/no-found.component';
 import { ToastModule } from './toast/toast.module';
+import { ConfigComponent } from './About/config/config.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ToastModule } from './toast/toast.module';
     MainComponent,
     DashboardComponent,
     Login2Component,
-    NoFoundComponent
+    NoFoundComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { ToastModule } from './toast/toast.module';
     ToastModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormularioModule
+    FormularioModule,
+    NgbModule
 
   ],
   providers: [
@@ -68,6 +71,7 @@ import { ToastModule } from './toast/toast.module';
     interceptorProvider,
     ErrorHandlerProvider,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

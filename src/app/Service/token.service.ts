@@ -8,6 +8,10 @@ export const NO_TOKEN = 'no TOKEN key storage';
 @Injectable({
   providedIn: 'root'
 })
+
+  // debo implementar esto para verificar si es admin !!!
+  // https://stackoverflow.com/questions/56414236/emit-an-event-through-service-in-angular
+
 export class TokenService {
   roles: Array<String> = [];
   constructor() { }

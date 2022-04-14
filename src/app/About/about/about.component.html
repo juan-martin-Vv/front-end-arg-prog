@@ -1,15 +1,21 @@
-<div class="d-flex position-relative">
-<div class="card text-end w-100">
-  <div class="card-body">
-    <h5 class="card-title">{{miDatos.profesionalPerfil}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{miDatos.nombre}} {{miDatos.apellido}}</h6>
-    <p class="card-text">{{miDatos.descripionPerfil}}</p>
+<div class="d-flex position-relative mostrador">
+  <div class="card text-end w-100">
+    <div class="card-body">
+      <h5 class="card-title">{{perfil.profesionalPerfil}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{perfil.nombre}} {{perfil.apellido}}</h6>
+      <p class="card-text">{{perfil.descripcion}}</p>
+    </div>
   </div>
-
-</div>
-<span>
-  <span class="position-absolute top-0 start-0 translate-middle-y" style="z-index: 100;">
-    <img src="../../../assets/Homer-simpson.jpg" class="rounded-circle border border-2 border-success"
-      style="height: 100px; width: auto;"></span>
-</span>
+  <span class="position-absolute top-0 start-0 translate-middle-y " style="z-index: 100;">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+      <div class="position-relative carousel-inner ">
+        <ng-container *ngFor="let image of images; index as count">
+          <div [ngClass]="count==0? 'carousel-item active':'carousel-item'">
+            <img [src]="image" class="rounded-circle border border-4 border-success"
+              style="height: 110px; width: auto;">
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </span>
 </div>

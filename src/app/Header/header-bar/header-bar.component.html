@@ -25,31 +25,10 @@
         </div>
       </div>
       <div class="d-flex d-inline-block p-2 ">
-        <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Launch demo modal
-        </button>-->
-        <!-- <button type="button" class="btn btn-primary"  *ngIf="isAdmin||true" (click)="login2()"><i class="fa fa-gears"></i></button> -->
         <button type="button" class="btn btn-primary m-1"  [routerLink]="['/']" [queryParams]="{login:'on'}">login</button>
-        <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin"[routerLink]="['/']" [queryParams]="{about:'on'}"><div><i class="fa fa-gears less"></i></div></button>
-        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" *ngIf="isAdmin||true">Edit</button> -->
+        <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin" [routerLink]="['/']" [queryParams]="{about:'on'}"><div><i class="fa fa-gears less"></i></div></button>
       </div>
     </div>
   </div>
 </nav>
-<!---modal login-->
-
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1"  aria-hidden="true">
-  <app-login></app-login>
-</div> -->
-<!--modal board-->
-<!-- <div class="modal fade" id="DashBoard" tabindex="-1" data-bs-backdrop="static"  aria-hidden="true">
-  <app-dashboard>
-    <div name="titulo" class="d-block">Editar el header </div>
-    <div name="cuerpo">cuerpo del DashBoard headerdfd adfadsf Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellendus voluptatum accusamus sint dolore quo dicta commodi inventore iusto, quia tempore voluptate excepturi porro iure! Soluta voluptate sequi est aliquam.  dfadfa</div>
-  </app-dashboard>
-</div> -->
-
-<!-- <div class="offcanvas offcanvas-" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <app-dashboard></app-dashboard>
-</div> -->
 <router-outlet></router-outlet>

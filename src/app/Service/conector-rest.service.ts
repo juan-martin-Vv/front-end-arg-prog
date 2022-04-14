@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PerfilClass, PerfilDTO } from '../Class/perfil-class';
-import { PerfilInterface } from '../Interface/perfil-interface';
+import { PerfilDTO } from '../Class/perfil-class';
 import {HttpClient} from '@angular/common/http'
 import { Observable, throwError } from 'rxjs';
 import { EducacionDTO } from '../Class/education-class';
@@ -8,7 +7,6 @@ import { ExperienciaDTO } from '../Class/experency-class';
 import { ProyectoDTO } from '../Class/proyect-class';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { UrlCreationOptions } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'

@@ -17,19 +17,20 @@ export interface PerfilInterface {
 
 export interface PerfilDTOInterface {
 
-  id: number | null;
-  nombre: String;
-  apellido: String;
-  dni: number;
-  fechaNacimiento: Date | null;
-  nacionalidad: String;
-  email: String;
-  descripcion: String | null;
-  image_background_header: String | null;
-  image_perfil: String | null;
-  ///
-  experiencia: ExperienciaDTO[] | null;
-  educacion: EducacionDTO[] | null;
-  proyectos: ProyectoDTO[] | null;
+
+    id: number | null;
+    nombre: String;
+    apellido: String;
+    dni: number;
+    fechaNacimiento: Date | null;
+    nacionalidad: String;
+    email: String;
+    descripcion: String | null;
+    profesionalPerfil: String | null;
+    image_background_header: String[] | null;
+    image_perfil: String[] | null;
+    experiencia: ExperienciaDTO[] | null;
+    educacion: EducacionDTO[] | null;
+    proyectos: ProyectoDTO[] | null;
 
 }

@@ -1,19 +1,20 @@
-<div class="card" style="width: 18rem;">
-  <!-- <img src="..." class="card-img-top" alt="..."> -->
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-  <div class="card-footer">
-    <button class="btn btn-close" (click)="close()"></button>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header d-inline-flex">
+      <h5 class="modal-title align-items-center my-1" id="staticBackdropLabel">
+        editando perfil
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"(click)="close()"></button>
+    </div>
+    <div class="modal-body">
+      <ng-container *ngFor="let form of formPerfilLabes">
+        <sheld-control [etiquetas]="form" [form]="formPerfil"></sheld-control>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success   mx-1" data-bs-dismiss="modal"  (click)="editar()">Actualizar</button>
+      <button type="button" class="btn btn-danger    mx-1" data-bs-dismiss="modal" [disabled]="!isAdmin"  (click)="borrar()">Borrar</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
+    </div>
   </div>
 </div>

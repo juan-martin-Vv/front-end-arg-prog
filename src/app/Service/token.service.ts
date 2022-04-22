@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Buffer } from 'buffer';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const TOKEN_KEY = "AUTH_TOKEN_IN";
 const USER_NAME = "AUTH_USER_NAME_IN";
@@ -16,6 +17,8 @@ export class TokenService {
   roles: Array<String> = [];
   constructor() { }
 
+  private isAdminVar = new BehaviorSubject<boolean>(false);
+  isAdminObs=this.isAdminVar.asObservable();
   public setToken(token: String): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token.toString());
@@ -60,9 +63,11 @@ export class TokenService {
     let is_admin: boolean = false;
     if (this.getAuthoritys().indexOf('ROLL_ADMIN') >= 0) {
       console.log("ADMIN detectado...")
+      this.isAdminVar.next(is_admin);
       return true;
     }
     console.log("USER detectado...")
+    this.isAdminVar.next(is_admin);
     return is_admin;
   }
   public isExpired(): boolean {

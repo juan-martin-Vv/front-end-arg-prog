@@ -14,8 +14,8 @@ import { ToastService } from 'src/app/toast/toast.service';
   styleUrls: ['./proyect-cont.component.css'],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ProyectContComponent implements OnInit ,OnChanges{
-  @Input()
+export class ProyectContComponent implements OnInit {
+  //@Input()
   dni_actual!:number;
   //
   admin!:boolean;
@@ -33,11 +33,6 @@ export class ProyectContComponent implements OnInit ,OnChanges{
     private toast:ToastService,
     private router:Router
     ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-
-    //console.log("proyect dice: "+changes.dni_actual.currentValue);
-    this.getData();
-  }
   private getData():void{
     if(this.dni_actual!=null&&this.dni_actual!=0)
     this.miApi.cargarProyectos(this.dni_actual).subscribe(
@@ -48,7 +43,7 @@ export class ProyectContComponent implements OnInit ,OnChanges{
         this.toast.show('Error :'+e)
       },
       ()=>{
-        this.admin=this.tokenService.isAdmin();
+        //this.admin=this.tokenService.isAdmin();
         this.cd.markForCheck()
       }
     );
@@ -92,8 +87,18 @@ export class ProyectContComponent implements OnInit ,OnChanges{
   }
 
   ngOnInit(): void {
-    console.log('proyect on!')
+    console.log('proyect on!');
+    this.miApi.dni_actual.subscribe(d=>{
+      this.dni_actual=d;
+      this.getData();
+    }
+      );
+    this.tokenService.isAdminObs.subscribe(d=>{
+      this.admin=d;
+      this.cd.markForCheck();
+    })
     this.saveProyectForm=this.miFromServic.toFromGroup(this.saveProyectFormLabes);
+    this.getData();
   }
   proyDto:ProyectoDTO[]=[];
   tituloProyectos:String="Proyectos encarados";

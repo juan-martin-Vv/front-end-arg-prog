@@ -90,6 +90,7 @@ export class Login2Component implements OnInit {
     this.authService.loginUser(this.loginUser).subscribe(
       d => {
         this.tokenService.setToken(d.token);
+
       },
       e => {
         this.isLogged = false;
@@ -99,6 +100,7 @@ export class Login2Component implements OnInit {
         this.cd.detectChanges()
       },
       () => {
+        this.tokenService.isAdmin();// verificamos si es admin y emitimos!!
         this.isLogged = true;
         this.isLoggedFail = false;
         this.router.navigateByUrl('/?reload=on')

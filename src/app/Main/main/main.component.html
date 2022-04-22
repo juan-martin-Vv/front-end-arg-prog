@@ -1,11 +1,24 @@
-<div  >
+<div>
 
-  <app-header [isAdmin]="is_admin" ></app-header>
-  <app-about [dni_actual]="dni_actual"></app-about>
-  <app-experency-cont [dni_actual]="dni_actual"></app-experency-cont>
-  <app-education-cont [dni_actual]="dni_actual"></app-education-cont>
-  <app-skill-cont></app-skill-cont>
-  <app-proyect-cont [dni_actual]="dni_actual"></app-proyect-cont>
+  <div class="row vh-lg-100 p-lg-2">
+    <app-header-bar></app-header-bar>
+      <div class="col-12 col-lg-8 ">
+        <div class="my-1 w-auto">
+          <app-header></app-header>
+          <app-about></app-about>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 pb-2">
+        <div class="my-1 w-auto h-100 border border-1 border-dark">
+          <app-experency-cont></app-experency-cont>
+          <app-education-cont></app-education-cont>
+          <app-skill-cont></app-skill-cont>
+          <app-proyect-cont></app-proyect-cont>
+        </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+
 
   <toast-top aria-live="polite" aria-atomic="true"></toast-top>
 </div>

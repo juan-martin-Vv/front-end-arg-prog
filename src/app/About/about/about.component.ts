@@ -9,7 +9,7 @@ import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 })
 export class AboutComponent implements OnInit, OnChanges {
 
-  @Input()
+
   dni_actual!: number;
   //
   dni_about!: number;
@@ -48,7 +48,7 @@ export class AboutComponent implements OnInit, OnChanges {
   perfil: PerfilDTO = new PerfilDTO();
   images: String[]=[]
   ngOnInit(): void {
-
+    this.misDatosService.dni_actual.subscribe(d=>this.dni_actual=d);
   }
 
 }

@@ -16,7 +16,7 @@ import { ToastService } from 'src/app/toast/toast.service';
 })
 export class ExperencyContComponent implements OnInit {
 
-  @Input()
+  //@Input()
   dni_actual:number=0;
   //
   admin!:boolean;
@@ -39,23 +39,16 @@ export class ExperencyContComponent implements OnInit {
   //   }
 
   //}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("changes experiencia dice: "+changes.dni_actual.currentValue);
-    this.getData();
-  }
   private getData():void{
     if(this.dni_actual!=null&&this.dni_actual!=0)
     this.miApi.cargarExperiencia(this.dni_actual).subscribe(
       d=>{
         this.Dto=d;
-        this.admin=this.tokenService.isAdmin();
         this.cd.markForCheck()
       },
       e=>{
         this.toast.show('Error :'+e)
       }
-
-
     );
   }
   iniciaForm(){
@@ -100,6 +93,8 @@ export class ExperencyContComponent implements OnInit {
   ngOnInit(): void {
     console.log('experiencia on!')
     this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
+    this.miApi.dni_actual.subscribe(d=>{this.dni_actual=d;this.getData();});
+    this.tokenService.isAdminObs.subscribe(d=>{this.admin=d;this.cd.markForCheck()});
     this.getData()
   }
   Dto: ExperienciaDTO[] = [];

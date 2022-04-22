@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { InyectorDataService } from 'src/app/Service/inyector-data.service';
+import { TokenService } from 'src/app/Service/token.service';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +14,21 @@ export class HeaderComponent implements OnInit {
   showNavigationIndicators = false;
   images = [1055, 194, 368].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
-  @Input()
+
   isAdmin!:boolean;
-  constructor(config:NgbCarouselConfig) {
+  constructor(config:NgbCarouselConfig,
+    private miApi:InyectorDataService,
+    private miAuth:TokenService
+    ) {
     config.showNavigationArrows=true;
     config.showNavigationIndicators=true
     this.images=[...this.images,'../../../assets/V4CQNELMTFE4DDFOY6SO2AATTE.jpg']
    }
 
   ngOnInit(): void {
+    this.miAuth.isAdminObs.subscribe(d=>this.isAdmin=d)
     console.log(this.images)
+
   }
 
 }

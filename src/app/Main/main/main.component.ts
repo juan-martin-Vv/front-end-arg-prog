@@ -67,15 +67,15 @@ export class MainComponent implements  OnInit{
         if (d['reload']=='on') {
           console.log('reload on');
           this.router.navigateByUrl('/');
-          this.dni_actual=0;
-          this.dni_actual=this.dni;
+          // this.dni_actual=0;
+          // this.dni_actual=this.dni;
           this.loadPerfirl()
         }
         if(d['login']=='off'){
           console.log('login off');
           this.miAuth.logout()
-          this.dni_actual=0;
-          this.is_admin=false;
+          // this.dni_actual=0;
+          // this.is_admin=false;
           this.router.navigateByUrl('/?login=on');
         }
         if(d['about']=='on'){
@@ -85,7 +85,6 @@ export class MainComponent implements  OnInit{
         }
       }
     )
-
     this.printDate()
     this.loadPerfirl()
   }
@@ -103,6 +102,7 @@ export class MainComponent implements  OnInit{
       },
       ()=>{
         this.dni_actual=dni;
+        this.miServicio.public_dni(this.dni_actual);    //emitimos dni a los otros servicios
         console.log("main dice dni a cargar: "+this.dni_actual);
         this.is_admin=this.miAuth.isAdmin();
         this.cd.markForCheck()

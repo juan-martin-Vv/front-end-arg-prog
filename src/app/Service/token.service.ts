@@ -19,6 +19,8 @@ export class TokenService {
 
   private isAdminVar = new BehaviorSubject<boolean>(false);
   isAdminObs=this.isAdminVar.asObservable();
+  //
+
   public setToken(token: String): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token.toString());
@@ -63,8 +65,9 @@ export class TokenService {
     let is_admin: boolean = false;
     if (this.getAuthoritys().indexOf('ROLL_ADMIN') >= 0) {
       console.log("ADMIN detectado...")
+      is_admin=true;
       this.isAdminVar.next(is_admin);
-      return true;
+      return is_admin;
     }
     console.log("USER detectado...")
     this.isAdminVar.next(is_admin);

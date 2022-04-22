@@ -15,74 +15,71 @@ import { ToastService } from 'src/app/toast/toast.service';
   templateUrl: './education-cont.component.html',
   styleUrls: ['./education-cont.component.css']
 })
-export class EducationContComponent implements OnChanges {
-  @Input()
-  dni_actual!:number;
+export class EducationContComponent implements OnInit {
+  //@Input()
+  dni_actual!: number;
   //
-  admin!:boolean;
+  admin!: boolean;
   //
-  saveForm!:FormGroup;
-  saveFormLabes:ControlModel<String>[]=EducacionFormTemplate;
+  saveForm!: FormGroup;
+  saveFormLabes: ControlModel<String>[] = EducacionFormTemplate;
   //
-  chilSing!:boolean;
+  chilSing!: boolean;
   constructor(
-    private miApi:InyectorDataService,
-    private miFromServic:ControlService,
-    private tokenService:TokenService,
-    private cd:ChangeDetectorRef,
-    private toast:ToastService
-    ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    //console.log("proyect dice: "+changes.dni_actual.currentValue);
-    this.getData();
+    private miApi: InyectorDataService,
+    private miFromServic: ControlService,
+    private tokenService: TokenService,
+    private cd: ChangeDetectorRef,
+    private toast: ToastService
+  ) { }
+  //
+  private getData(): void {
+    if (this.dni_actual != null && this.dni_actual != 0)
+      this.miApi.cargarEducacion(this.dni_actual).subscribe(
+        d => {
+          this.Dto = d;
+          console.log('educaion :' + this.dni_actual)
+        },
+        e => {
+          this.toast.show('Error :' + e)
+        },
+        () => {
+          this.cd.markForCheck()
+        }
+      );
   }
-  private getData():void{
-    if(this.dni_actual!=null&&this.dni_actual!=0)
-    this.miApi.cargarEducacion(this.dni_actual).subscribe(
-      d=>{
-        this.Dto=d;
-      },
-      e=>{
-        this.toast.show('Error :'+e)
-      },
-      ()=>{
-        this.admin=this.tokenService.isAdmin();
-        this.cd.markForCheck()
-      }
-    );
-  }
-  iniciaForm(){
+  iniciaForm() {
     this.saveForm.reset();
   }
-  signal(inSingal: number):void{
-    let array:EducacionDTO[]=[];
-    console.log('signal :'+inSingal)
-    this.Dto.forEach( d=>{
-      if (d.id!=inSingal) {
-        array=[...array,d]
+  signal(inSingal: number): void {
+    let array: EducacionDTO[] = [];
+    console.log('signal :' + inSingal)
+    this.Dto.forEach(d => {
+      if (d.id != inSingal) {
+        array = [...array, d]
       }
     })
-    this.Dto=array;
+    this.Dto = array;
     this.cd.markForCheck();
   }
 
-  guardar():void{
-    let saveDto:EducacionDTO;
-    saveDto=<EducacionDTO>this.saveForm.getRawValue();
+  guardar(): void {
+    let saveDto: EducacionDTO;
+    saveDto = <EducacionDTO>this.saveForm.getRawValue();
     if (this.tokenService.isAdmin()) {
-        this.miApi.guardarEducacion(this.dni_actual,saveDto)
+      this.miApi.guardarEducacion(this.dni_actual, saveDto)
         .subscribe(
-          d=>{
-            d.inicio=this.saveForm.value['inicio']
-            d.fin=this.saveForm.value['fin']
-            this.toast.succes("Se guardo correctamente :"+d.id)
+          d => {
+            d.inicio = this.saveForm.value['inicio']
+            d.fin = this.saveForm.value['fin']
+            this.toast.succes("Se guardo correctamente :" + d.id)
             this.Dto.push(d)
           },
-          e=>{
-            this.toast.danger('Se produjo un error : '+e)
+          e => {
+            this.toast.danger('Se produjo un error : ' + e)
           },
-          ()=>{
-            this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
+          () => {
+            this.saveForm = this.miFromServic.toFromGroup(this.saveFormLabes);
             this.cd.markForCheck()
           }
         )
@@ -90,9 +87,21 @@ export class EducationContComponent implements OnChanges {
   }
 
   ngOnInit(): void {
-    this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
+    this.saveForm = this.miFromServic.toFromGroup(this.saveFormLabes);
+    this.miApi.dni_actual.subscribe(d => {
+      this.dni_actual = d;
+      this.getData();
+      this.cd.markForCheck();
+    },
+    );//
+    this.tokenService.isAdminObs.subscribe(
+      d => {
+        this.admin = d;
+        this.cd.markForCheck();
+      }
+    )
   }
-  Dto:EducacionDTO[]=[];
-  titulo:String="Educación Alcanzada";
+  Dto: EducacionDTO[] = [];
+  titulo: String = "Educación Alcanzada";
 
 }

@@ -31,6 +31,7 @@ import { Login2Component } from './login2/login2.component';
 import { NoFoundComponent } from './no-found/no-found.component';
 import { ToastModule } from './toast/toast.module';
 import { ConfigComponent } from './About/config/config.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ConfigComponent } from './About/config/config.component';
     DashboardComponent,
     Login2Component,
     NoFoundComponent,
-    ConfigComponent
+    ConfigComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

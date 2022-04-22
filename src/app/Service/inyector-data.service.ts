@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AboutClass } from '../Class/about-class';
 import { EducacionDTO, EducationClass } from '../Class/education-class'
 import { ExperienciaDTO } from '../Class/experency-class';
@@ -13,10 +13,18 @@ let per: PerfilDTO = new PerfilDTO();
 })
 export class InyectorDataService {
 
+  ////     dni que pasara a todos componentes que lo requieran
+  private dni = new BehaviorSubject<number>(0);
+  dni_actual= this.dni.asObservable();
+  //
 
-  public dni_event$!:Observable<number>;
   constructor(private miConexion: ConectorRestService) {
   }
+  //
+  public public_dni(dni:number){
+    this.dni.next(dni);
+  }
+
   //////// carga por default
   cargarEducacion(dni?: number): Observable<EducacionDTO[]> {
     return this.miConexion.getEducation(dni);
@@ -61,7 +69,7 @@ export class InyectorDataService {
   editarrPerfil(dto:PerfilDTO): Observable<PerfilDTO> {
     return this.miConexion.putPerfil(dto);
   }
-  //// borrar 
+  //// borrar
   borrarEducacion(dni?: number): Observable<EducacionDTO> {
     return this.miConexion.deleteEducation(dni);
   }

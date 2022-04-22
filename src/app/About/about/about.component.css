@@ -1,7 +1,7 @@
 .mostrador{
   aspect-ratio: 16/3;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
 
 }
 .mostrador img {

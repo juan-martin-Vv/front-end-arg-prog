@@ -1,5 +1,5 @@
-<nav >
-  <div class="d-flex flex-md-row  flex-column  justify-content-md-between border border-1 border-dark">
+<nav>
+  <div class="d-flex flex-md-row  flex-column  justify-content-md-between border border-1 border-dark bg-light">
     <div class="d-flex align-items-center  justify-content-between">
       <div class="d-flex d-inline-block p-1 ">
         <a href="https://argentinaprograma.inti.gob.ar/" class="d-inline-block">
@@ -14,19 +14,19 @@
       <div class="d-inline-block ">
         <div>
           <a class="btn btn-block btn-social btn-twitter">
-            <span class="fa fa-twitter iconos"></span>
+            <span class="fa-brands fa-twitter fa-lg iconos"></span>
           </a>
           <a class="btn btn-block btn-social btn-github">
-            <span class="fa fa-github iconos"></span>
+            <span class="fa-brands fa-github fa-lg iconos"></span>
           </a>
           <a class="btn btn-block btn-social btn-facebook">
-            <span class="fa fa-facebook iconos"></span>
+            <span class="fa-brands fa-facebook-square fa-lg iconos"></span>
           </a>
         </div>
       </div>
       <div class="d-flex d-inline-block">
         <button type="button" class="btn btn-primary m-1"  [routerLink]="['/']" [queryParams]="{login:'on'}">login</button>
-        <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin" [routerLink]="['/']" [queryParams]="{about:'on'}"><div><i class="fa fa-gears less"></i></div></button>
+        <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin" [routerLink]="['/']" [queryParams]="{about:'on'}"><div><i class="fa-solid fa-pencil"></i></div></button>
       </div>
     </div>
   </div>

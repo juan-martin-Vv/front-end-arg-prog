@@ -10,39 +10,43 @@
     <div class="col d-inline-flex justify-content-around">
       <div class="progress blue"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">90% 1</div>
+        <div class="progress-value">90%</div>
       </div>
 
 
       <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5% 2</div>
+        <div class="progress-value">37.5%</div>
       </div>
 
 
       <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">7.5% 3</div>
+        <div class="progress-value">7.5%</div>
       </div>
     </div>
 
     <div class="col d-inline-flex justify-content-around">
-      <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
+      <!-- <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">67.5% 4</div>
+        <div class="progress-value">67.5%</div>
       </div>
 
 
       <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5% 5</div>
+        <div class="progress-value">37.5%</div>
       </div>
 
 
       <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
           class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5% 6</div>
-      </div>
+        <div class="progress-value">37.5%</div>
+      </div> -->
+
+      <app-skill-unit [progres]="progres[0]"></app-skill-unit>
+      <app-skill-unit [progres]="progres[1]"></app-skill-unit>
+      <app-skill-unit [progres]="progres[2]"></app-skill-unit>
     </div>
   </div>
 </div>

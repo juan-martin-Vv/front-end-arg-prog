@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
     config.showNavigationArrows=true;
     config.showNavigationIndicators=true
     this.images=[...this.images,'../../../assets/V4CQNELMTFE4DDFOY6SO2AATTE.jpg']
+    this.images=[...this.images,'https://images.pexels.com/photos/177598/pexels-photo-177598.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940']
    }
 
   ngOnInit(): void {

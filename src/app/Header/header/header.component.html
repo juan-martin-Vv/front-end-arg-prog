@@ -10,7 +10,7 @@
           <div class="position-relative carousel-inner ">
             <ng-container *ngFor="let image of images; index as count">
               <div [ngClass]="count==0? 'carousel-item active':'carousel-item'">
-                <img [src]="image" alt="...">
+                <img [src]="image">
               </div>
             </ng-container>
           </div>

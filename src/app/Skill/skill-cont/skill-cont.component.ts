@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SkillContComponent implements OnInit {
 
+  progres:number[]=[20,35,100]
   constructor() { }
 
   ngOnInit(): void {

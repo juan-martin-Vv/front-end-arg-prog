@@ -1,6 +1,6 @@
-<nav>
+<nav (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed fixed-top bg-light':'nofixed'">
   <div class="d-flex flex-md-row  flex-column  justify-content-md-between border border-1 border-dark bg-light">
-    <div class="d-flex align-items-center  justify-content-between">
+    <div class="d-flex  align-items-center  justify-content-between">
       <div class="d-flex d-inline-block p-1 ">
         <a href="https://argentinaprograma.inti.gob.ar/" class="d-inline-block">
           <img src="../../../assets/APLogo-20-20.png" style="background-color: blue; height: 60px; width: auto;">
@@ -24,9 +24,13 @@
           </a>
         </div>
       </div>
-      <div class="d-flex d-inline-block">
-        <button type="button" class="btn btn-primary m-1"  [routerLink]="['/']" [queryParams]="{login:'on'}">login</button>
-        <button type="button" class="btn btn-secondary w-50 m-1"  *ngIf="isAdmin" [routerLink]="['/']" [queryParams]="{about:'on'}"><div><i class="fa-solid fa-pencil"></i></div></button>
+      <div class="d-flex d-inline-block p-2">
+        <button type="button" class="btn btn-primary m-1" [routerLink]="['/']"
+          [queryParams]="{login:'on'}">login</button>
+        <button type="button" class="btn btn-secondary w-50 m-1" *ngIf="isAdmin" [routerLink]="['/']"
+          [queryParams]="{about:'on'}">
+          <div><i class="fa-solid fa-pencil"></i></div>
+        </button>
       </div>
     </div>
   </div>

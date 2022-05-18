@@ -78,8 +78,16 @@ export class MainComponent implements  OnInit{
           // this.is_admin=false;
           this.router.navigateByUrl('/?login=on');
         }
+        if(d['login']=='out'){
+          console.log('login out');
+          this.miAuth.logout()
+          // this.dni_actual=0;
+          // this.is_admin=false;
+          this.loadPerfirl();//refresco general
+          this.router.navigateByUrl('/');
+        }
         if(d['about']=='on'){
-          console.log('login on?');
+          // console.log('login on?');
           this.router.navigateByUrl('/');
           this.modalService.open(ConfigComponent);
         }
@@ -93,8 +101,6 @@ export class MainComponent implements  OnInit{
     this.miServicio.cargarPerfil().subscribe(
       d=>{
         dni=d.dni;
-
-
       },
       e=>{
         console.log("main dice error: ");

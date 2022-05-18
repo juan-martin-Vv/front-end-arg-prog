@@ -54,8 +54,8 @@ export class TokenService {
       //console.log(rol);
       rol?.forEach((e) => { this.roles.push(e.authority) });
     }
-    console.log("roles:");
-    console.log(this.roles);
+    // console.log("roles:");
+    // console.log(this.roles);
     return this.roles;
   }
   public logout(): void {
@@ -64,12 +64,12 @@ export class TokenService {
   public isAdmin(): boolean {
     let is_admin: boolean = false;
     if (this.getAuthoritys().indexOf('ROLL_ADMIN') >= 0) {
-      console.log("ADMIN detectado...")
+      // console.log("ADMIN detectado...")
       is_admin=true;
       this.isAdminVar.next(is_admin);
       return is_admin;
     }
-    console.log("USER detectado...")
+    // console.log("USER detectado...")
     this.isAdminVar.next(is_admin);
     return is_admin;
   }

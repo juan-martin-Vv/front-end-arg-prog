@@ -13,20 +13,21 @@
     <div class="d-flex align-items-center  justify-content-between">
       <div class="d-inline-block ">
         <div>
-          <a class="btn btn-block btn-social btn-twitter">
+          <a class="btn btn-block btn-social btn-twitter" href="https://twitter.com/?lang=es">
             <span class="fa-brands fa-twitter fa-lg iconos"></span>
           </a>
-          <a class="btn btn-block btn-social btn-github">
+          <a class="btn btn-block btn-social btn-github" href="https://github.com/juan-martin-Vv">
             <span class="fa-brands fa-github fa-lg iconos"></span>
           </a>
-          <a class="btn btn-block btn-social btn-facebook">
+          <a class="btn btn-block btn-social btn-facebook" href="https://es-la.facebook.com/">
             <span class="fa-brands fa-facebook-square fa-lg iconos"></span>
           </a>
         </div>
       </div>
-      <div class="d-flex d-inline-block p-2">
+      <div class="d-flex align-items-center p-2">
+        <a role="button" class="rounded rounded-circle h-75 align-content-center m-2 text text-black " (click)="swichtTheme()"><i class="fa-solid"[ngClass]="themeDark?'fa-moon':'fa-sun'"></i></a>
         <button type="button" class="btn btn-primary m-1" [routerLink]="['/']"
-          [queryParams]="{login:'on'}">login</button>
+          [queryParams]="{login: isLogged?'out':'on'}" (click)="Logged()" >{{isLogged? 'LogOut':'LogIn'}}</button>
         <button type="button" class="btn btn-secondary w-50 m-1" *ngIf="isAdmin" [routerLink]="['/']"
           [queryParams]="{about:'on'}">
           <div><i class="fa-solid fa-pencil"></i></div>

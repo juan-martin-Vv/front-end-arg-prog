@@ -1,9 +1,7 @@
 import { Inject } from "@angular/core";
-import { ControlModel, EntradaFechas, EntradaTexto, NullFieldForm } from "../formulario/control-model";
-import { EducacionDTOInterface, EducationInterface } from "../Interface/education-interface";
+import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm } from "../formulario/control-model";
 
-
-export class EducationClass implements EducationInterface{
+export class EducationClass {
 
   constructor(titu?:String,fechOb?:Date,@Inject(Boolean) comlp?:boolean ,emi?:String,desc?:String)
   {
@@ -20,7 +18,7 @@ export class EducationClass implements EducationInterface{
   descripcion!: String | null;
 
  }
- export class EducacionDTO implements EducacionDTOInterface{
+ export class EducacionDTO {
    id!: number | null;
    institucion!: String;
    titulo!: String;
@@ -46,9 +44,9 @@ export class EducationClass implements EducationInterface{
      required:true,
      order:1
    }),
-   new EntradaTexto({
+   new ImagenForm({
      key:'image',
-     label:'Logo :',
+     label:'Logo o Imagen:',
      order:3
    }),
    new EntradaTexto({

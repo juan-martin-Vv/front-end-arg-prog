@@ -1,16 +1,25 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Nombre: {{Dto.carrera}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Lenguaje: {{Dto.institucion}}</h6>
-    <p class="card-text">Descripcion: {{Dto.titulo}}<br>
-  </div>
-  <button type="button"
+    <div class="row">
+      <div class="col-3 miniaturas">
+        <img [src]="Dto.image" class="img-thumbnail">
+      </div>
+      <div class="col-9">
+        <h5 class="card-title">Nombre: {{Dto.carrera}}</h5>
+        <h6 class="card-subtitle mb-2">Lenguaje: {{Dto.institucion}}</h6>
+        <p class="card-text">Descripcion: {{Dto.titulo}}<br>
+        <button type="button"
         [hidden]="false" class="btn btn-success me-0"
         data-bs-toggle="modal"
         [id]="butonId"
         [attr.data-bs-target]="'#modal'+butonId">
-        <span class="text-lg-center">{{isAdmin? 'Editar':'Ver detalles'}} :{{Dto.id}}</span>
+        <span class="text-lg-center">{{isAdmin? 'Editar':'Ver detalles'}}</span>
   </button>
+      </div>
+    </div>
+
+  </div>
+
 
   <div class="modal fade" [id]="'modal'+butonId" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
     <app-dashboard>

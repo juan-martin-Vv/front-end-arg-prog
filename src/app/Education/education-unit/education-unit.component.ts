@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { EducacionDTO, EducacionFormTemplate } from 'src/app/Class/education-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
-import { EducationInterface } from 'src/app/Interface/education-interface';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { ToastService } from 'src/app/toast/toast.service';
 

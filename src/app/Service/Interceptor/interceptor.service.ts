@@ -21,13 +21,13 @@ export class InterceptorService implements HttpInterceptor {
 
 
     const token = this.tokenService.getToken();
-    console.log("interceptor")
+    // console.log("interceptor")
     if (token != null && !token.startsWith(NO_TOKEN)) {
       if (!inReq.url.endsWith('/login')) {
         inReq = this.addToken(req, token);
       }
       //inReq=req.clone({headers:req.headers.set("Authorization","Bearer "+token)});
-      console.log("Authorization passing");
+      // console.log("Authorization passing");
     }
     return next.handle(inReq).pipe(
       catchError(

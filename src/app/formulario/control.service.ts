@@ -7,6 +7,16 @@ import { ControlModel } from './control-model';
 })
 export class ControlService {
   constructor() { }
+  toArrayToFormList(control:ControlModel<String>, array:any[],keyGen:String,labelGen?:String):ControlModel<String>{
+    control.options=[];
+    array.forEach((element,i) => {
+      control.options.push(
+        {key:`key ${i}`,value:<string>element, label:`${labelGen==null? keyGen:labelGen} ${i}`}
+        );
+    });
+    control.value=control.options[0].value;
+    return control;
+  }
   toFromGroup(proyectos: ControlModel<String>[]): FormGroup {
     let grupo: any = {};
     proyectos.forEach(proyecto => {
@@ -29,6 +39,12 @@ export class ControlService {
         }
         if (restriccion.restriccion.includes('minlength')) {
           grupo[proyecto.key].addValidators(Validators.minLength(Number(restriccion.valor)||1));
+        }
+        if (restriccion.restriccion.includes('maxNumber')) {
+          <FormControl>grupo[proyecto.key].addValidators(Validators.max(Number(restriccion.valor)||100));
+        }
+        if (restriccion.restriccion.includes('minNumber')) {
+          grupo[proyecto.key].addValidators(Validators.min(Number(restriccion.valor)||0));
         }
       }
       );

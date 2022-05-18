@@ -87,7 +87,7 @@ export class ProyectContComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('proyect on!');
+    // console.log('proyect on!');
     this.miApi.dni_actual.subscribe(d=>{
       this.dni_actual=d;
       this.getData();
@@ -101,5 +101,5 @@ export class ProyectContComponent implements OnInit {
     this.getData();
   }
   proyDto:ProyectoDTO[]=[];
-  tituloProyectos:String="Proyectos encarados";
+  tituloProyectos:String="Proyectos Encarados";
 }

@@ -1,53 +1,38 @@
-<div class="d-grid m-2">
+<div class="d-grid my-2">
   <button class="btn btn-primary " type="button" data-bs-toggle="collapse" data-bs-target="#skillCollapse"
     aria-expanded="false" aria-controls="ExpCollapse">
     {{titulo}}
   </button>
 </div>
 <div class="collapse" id="skillCollapse">
-<div class="d-flex justify-content-between">
-  <div class="d-flex row ">
-    <div class="col d-inline-flex justify-content-around">
-      <div class="progress blue"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">90%</div>
-      </div>
-
-
-      <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5%</div>
-      </div>
-
-
-      <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">7.5%</div>
-      </div>
+  <div class="card mb-2"[hidden]="!admin">
+    <div class="card-body d-flex">
+      <h4 class="flex-fill m-auto">Agregar {{titulo}}</h4>
+      <button type="button"  class="btn btn-success m-0" data-bs-toggle="modal"
+    data-bs-target="#skillDash"><span class="text-lg-center">+</span> </button>
     </div>
+  </div>
 
-    <div class="col d-inline-flex justify-content-around">
-      <!-- <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">67.5%</div>
-      </div>
-
-
-      <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5%</div>
-      </div>
-
-
-      <div class="progress yellow"> <span class="progress-left"> <span class="progress-bar"></span> </span> <span
-          class="progress-right"> <span class="progress-bar"></span> </span>
-        <div class="progress-value">37.5%</div>
-      </div> -->
-
-      <app-skill-unit [progres]="progres[0]"></app-skill-unit>
-      <app-skill-unit [progres]="progres[1]"></app-skill-unit>
-      <app-skill-unit [progres]="progres[2]"></app-skill-unit>
+  <div class="container-fluid d-flex flex-wrap gap-2" [ngClass]="skillDto.length<3? 'justify-content-evenly': 'justify-content-between '">
+    <div *ngFor="let skill_u of skillDto;index as i">
+      <app-skill-unit [SkillDTO]="skill_u" (outSignal)="signal($event)" ></app-skill-unit>
     </div>
   </div>
 </div>
+<!--  -->
+<div class="modal fade" id="skillDash" tabindex="-1" data-bs-backdrop="static" aria-labelledby="proyectDashLabel"
+  aria-hidden="true">
+  <app-dashboard>
+    <div name="titulo" class="d-block">Editar {{titulo}} </div>
+    <div name="cuerpo">
+      <form (ngSubmit)="guardar()" [formGroup]="saveSkillForm" class="mb-3 border-1">
+        <div *ngFor="let Dato of saveSkillFormLabes ">
+          <sheld-control [etiquetas]="Dato" [form]="saveSkillForm"></sheld-control>
+        </div>
+      </form>
+    </div>
+    <div name="footer">
+      <button type="button" class="btn btn-success m-1" (click)="guardar()">Agregar</button>
+    </div>
+  </app-dashboard>
 </div>

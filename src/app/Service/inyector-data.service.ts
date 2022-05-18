@@ -5,6 +5,7 @@ import { EducacionDTO, EducationClass } from '../Class/education-class'
 import { ExperienciaDTO } from '../Class/experency-class';
 import { PerfilDTO } from '../Class/perfil-class';
 import { ProyectoDTO } from '../Class/proyect-class';
+import { Skill } from '../Class/skill';
 import { ConectorRestService } from './conector-rest.service';
 
 let per: PerfilDTO = new PerfilDTO();
@@ -26,6 +27,9 @@ export class InyectorDataService {
   }
 
   //////// carga por default
+  cargarSkills(dni: number): Observable<Skill[]> {
+    return this.miConexion.getSkill(dni);
+  }
   cargarEducacion(dni?: number): Observable<EducacionDTO[]> {
     return this.miConexion.getEducation(dni);
   }
@@ -43,6 +47,9 @@ export class InyectorDataService {
     }
   }
   ///// Guardar datos
+  guardarSkill(dni: number | undefined, dto:Skill): Observable<Skill> {
+    return this.miConexion.postSkill(dni,dto);
+  }
   guardarEducacion(dni: number | undefined, dto:EducacionDTO): Observable<EducacionDTO> {
     return this.miConexion.postEducation(dni,dto);
   }
@@ -57,6 +64,9 @@ export class InyectorDataService {
   }
 
   //// editar
+  editarSkill(dto:Skill): Observable<Skill> {
+    return this.miConexion.putSkill(dto);
+  }
   editarEducacion(dto:EducacionDTO): Observable<EducacionDTO> {
     return this.miConexion.putEducation(dto);
   }
@@ -70,14 +80,17 @@ export class InyectorDataService {
     return this.miConexion.putPerfil(dto);
   }
   //// borrar
-  borrarEducacion(dni?: number): Observable<EducacionDTO> {
-    return this.miConexion.deleteEducation(dni);
+  borrarSkill(id?: number): Observable<Skill> {
+    return this.miConexion.deleteSkill(id);
   }
-  borrarExperiencia(dni?: number): Observable<ExperienciaDTO> {
-    return this.miConexion.deleteExperence(dni);
+  borrarEducacion(id?: number): Observable<EducacionDTO> {
+    return this.miConexion.deleteEducation(id);
   }
-  borrarProyectos(dni?: number): Observable<ProyectoDTO> {
-    return this.miConexion.deleteProyect(dni);
+  borrarExperiencia(id?: number): Observable<ExperienciaDTO> {
+    return this.miConexion.deleteExperence(id);
+  }
+  borrarProyectos(id?: number): Observable<ProyectoDTO> {
+    return this.miConexion.deleteProyect(id);
   }
   borrarPerfil(dni?: number): Observable<PerfilDTO> {
     return this.miConexion.deletePerfil(dni);

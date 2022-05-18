@@ -1,7 +1,47 @@
-<div class="progress yellow">
-  <!-- <span class="progress-left"><span class="progress-bar"></span></span> -->
+<div class="row skill border border-2 justify-content-center position-relative">
+  <div class="d-flex justify-content-center  progress" [ngClass]="over180? 'blue':' yellow'">
 
-  <span class="progress-right"><span class="progress-bar"></span></span>
+    <span class="progress-left" *ngIf="over180"><span class="progress-bar"></span></span>
 
-  <div class="progress-value">{{progres}}%</div>
+    <span class="progress-right"><span class="progress-bar"></span></span>
+
+    <div class="progress-value">{{progres}}%</div>
+  </div>
+  <div class="row gx-0 texto">
+    <span class="text text-black text-center">{{label}}</span>
+  </div>
+  <div>
+    <button type="button"
+        [hidden]="!isAdmin" class="btn btn-success position-absolute top-0 end-0 "
+        data-bs-toggle="modal"
+        [id]="butonId"
+        [attr.data-bs-target]="'#modal'+butonId">
+        <i class="fa-solid fa-pencil"></i>
+        <!-- <span class="text-lg-center">{{isAdmin? 'Editar':'Ver detalles'}} :{{SkillDTO.id}}</span> -->
+  </button>
+  </div>
 </div>
+<!-- edit -->
+
+
+
+  <div class="modal fade" [id]="'modal'+butonId" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <app-dashboard>
+      <div name="titulo" class="d-block align-baseline ">Detalles <span [ngClass]="isAdmin? 'fa fa-edit ':'fa fa-search'"></span>  </div>
+      <div name="cuerpo">
+        <h3>Id [{{SkillDTO.id}}]</h3>
+        <form (ngSubmit)="editar()" [formGroup]="saveSkillForm" class="mb-3 border-1 ">
+          <div *ngFor="let Dato of saveSkillFormLabes">
+            <sheld-control [etiquetas]="Dato" [form]="saveSkillForm"></sheld-control>
+          </div>
+        </form>
+      </div>
+      <div name="footer" class="m-0 p-0">
+
+          <button type="button" class="btn btn-success   mx-1" data-bs-dismiss="modal" [hidden]="!isAdmin" [disabled]="!isValid()" (click)="editar()">Actualizar</button>
+          <button type="button" class="btn btn-danger    mx-1" data-bs-dismiss="modal" [hidden]="!isAdmin"  (click)="borrar()">Borrar</button>
+          <button type="button" class="btn btn-secondary mx-1" (click)="deshacer()"    [hidden]="!isAdmin" >Deshacer</button>
+      </div>
+    </app-dashboard>
+  </div>
+

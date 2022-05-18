@@ -1,11 +1,8 @@
-import { EntradaFechas, EntradaTexto, NullFieldForm, restriccion } from "../formulario/control-model";
-import { EducationInterface } from "../Interface/education-interface";
-import { ExperencyInterface } from "../Interface/experency-interface";
-import { PerfilDTOInterface, PerfilInterface } from "../Interface/perfil-interface";
-import { ProyectInterface} from "../Interface/proyect-interface";
+import { EntradaFechas, EntradaTexto, NullFieldForm, RadioButton, restriccion } from "../formulario/control-model";
 import { EducacionDTO } from "./education-class";
 import { ExperienciaDTO } from "./experency-class";
 import { ProyectoDTO } from "./proyect-class";
+import { Skill } from "./skill";
 
 
 export class PerfilDTO {
@@ -23,7 +20,8 @@ export class PerfilDTO {
   experiencia!: ExperienciaDTO[] | null;
   educacion!: EducacionDTO[] | null;
   proyectos!: ProyectoDTO[] | null;
-
+  skill!:Skill[] | null;
+  type!:PerfilType;
   constructor(){
 
   this.id=0;
@@ -40,7 +38,15 @@ export class PerfilDTO {
   this.experiencia=[];
   this.educacion=[];
   this.proyectos=[];
+  this.skill=[];
+  this.type=PerfilType.storage;
   }
+}
+export const image_face_default='https://cdn.pixabay.com/photo/2022/05/02/10/10/siberian-husky-7169324_960_720.jpg';
+export const image_banner_default='https://cdn.pixabay.com/photo/2018/10/19/09/17/travel-3758193_960_720.jpg';
+export enum PerfilType{
+  principal='principal',
+  storage='storage'
 }
 export const PerfilFromTemplate =[
   new NullFieldForm({
@@ -86,6 +92,18 @@ export const PerfilFromTemplate =[
     key:'profesionalPerfil',
     label:'Perfil profesional :'
   }),
+  //***no es requerido en esta etapa ***/
+  new NullFieldForm({
+    key:'type',
+    label:'Tipo de perfil :',
+    value:'opt1',
+    options:[
+      {key:'opt1',value:PerfilType.principal,label:'Principal'},
+      {key:'opt2',value:PerfilType.storage,label:'Secundario'},
+    ],
+
+  }),
+
   ///********campos de arrays**********///
   new NullFieldForm({
     key:'image_background_header'
@@ -102,5 +120,8 @@ export const PerfilFromTemplate =[
   }),
   new NullFieldForm({
     key:'proyectos'
+  }),
+  new NullFieldForm({
+    key:'skill'
   })
 ]

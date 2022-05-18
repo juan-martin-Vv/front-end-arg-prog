@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { EducacionDTO, EducacionFormTemplate } from 'src/app/Class/education-class';
-import { PerfilDTO } from 'src/app/Class/perfil-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
-import { EducationInterface } from 'src/app/Interface/education-interface';
 
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
@@ -102,6 +100,6 @@ export class EducationContComponent implements OnInit {
     )
   }
   Dto: EducacionDTO[] = [];
-  titulo: String = "Educación Alcanzada";
+  titulo: String = "Conocimientos";
 
 }

@@ -14,7 +14,7 @@ import { ExperencyContComponent } from './Experency/experency-cont/experency-con
 import { ExperencyUnitComponent } from './Experency/experency-unit/experency-unit.component';
 import { HeaderBarComponent } from './Header/header-bar/header-bar.component';
 import { HeaderComponent } from './Header/header/header.component';
-import { LoginComponent } from './Login/login/login.component';
+// import { LoginComponent } from './Login/login/login.component';
 import { MainComponent } from './Main/main/main.component';
 import { ProyectContComponent } from './Proyect/proyect-cont/proyect-cont.component';
 import { ProyectUnitComponent } from './Proyect/proyect-unit/proyect-unit.component';
@@ -22,7 +22,7 @@ import { SkillContComponent } from './Skill/skill-cont/skill-cont.component';
 import { SkillUnitComponent } from './Skill/skill-unit/skill-unit.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './Login/dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { interceptorProvider } from './Service/Interceptor/interceptor.service';
 import { FormularioModule } from './formulario/formulario.module';
 import { ErrorHandlerProvider } from './Service/Interceptor/golbal-error-handler.service';
@@ -47,7 +47,7 @@ import { FooterComponent } from './footer/footer.component';
     SkillUnitComponent,
     ProyectContComponent,
     ProyectUnitComponent,
-    LoginComponent,
+    // LoginComponent,
     MainComponent,
     DashboardComponent,
     Login2Component,

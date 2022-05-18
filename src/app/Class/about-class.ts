@@ -1,6 +1,4 @@
-import { AboutInterface } from "../Interface/about-interface";
-
-export class AboutClass implements AboutInterface {
+export class AboutClass {
   constructor(nomb?:String,apel?:String,profPerfil?:String,descPerfil?:String)
   {
     this.nombre=nomb??"/***/";

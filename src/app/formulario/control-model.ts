@@ -6,7 +6,7 @@ export class ControlModel<T> {
     order: number;
     controlType: string;
     type: string;
-    options: { key: string, value: string }[];
+    options: { key: string, value: string, label?:string }[];
     //
     restricciones: { restriccion: string, valor?: string, errores?: string }[];
 
@@ -18,7 +18,7 @@ export class ControlModel<T> {
         order?: number;
         controlType?: string;
         type?: string;
-        options?: { key: string, value: string }[];
+        options?: { key: string, value: string,label?:string }[];
         restricciones?: { restriccion: restriccion, valor?: string, errores?: string }[]
     } = {}) {
         this.value = options.value;
@@ -51,10 +51,21 @@ export class EntradaFechas extends ControlModel<string>
   override controlType ='textbox';
   override type ='date';
 }
+export class RadioButton extends ControlModel<string> {
+  override controlType = 'radio';
+}
+export class ImagenForm extends ControlModel<string>
+{
+  override controlType = 'image';
+  override type= "url";
+  override restricciones=[ { restriccion: restriccion.maxlength,valor: '250' , errores:'url muy larga!!!' }];
+}
 export enum restriccion{
   required='required',
   maxlength='maxlength',
   minlength='minlength',
   email='email',
-  pattern='pattern'
+  pattern='pattern',
+  max='maxNumber',
+  min='minNumber'
 }

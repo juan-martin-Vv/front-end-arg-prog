@@ -1,13 +1,12 @@
-import { ControlModel, EntradaTexto, LabelForm, NullFieldForm, restriccion } from "../formulario/control-model";
-import { ProyectoDTOInterface } from "../Interface/proyect-interface";
+import { ControlModel, EntradaTexto, ImagenForm, NullFieldForm, restriccion } from "../formulario/control-model";
 
-
-export class ProyectoDTO implements ProyectoDTOInterface{
+export class ProyectoDTO {
   id!: number | null;
   nombre!: String;
   lenguaje!: String;
   descripcion!: String;
   image!: String;
+  linkGit!:String;
 
 }
 
@@ -45,16 +44,20 @@ export const ProyectFromTemplate:ControlModel<String>[] =[
         {restriccion:restriccion.minlength,valor:'6',errores:'debe ingresar mas de 6 letras!!'}
       ],
     }),
-    new EntradaTexto({
+    new ImagenForm({
       key:'image',
-      label:'Fotos del proyecto',
+      label:'Foto del proyecto',
       order:4,
       required:true,
       restricciones:[
         {restriccion: restriccion.required,valor:'',errores:''},
-        {restriccion:restriccion.minlength,valor:'6',errores:'debe ingresar mas de 6 letras!!'}
+        {restriccion: restriccion.minlength,valor:'6',errores:'debe ingresar mas de 6 letras!!'}
       ],
     }),
+    new EntradaTexto({
+      key:'linkGit',
+      label:'Repositorio GitHub :'
+    })
 
 ]
 

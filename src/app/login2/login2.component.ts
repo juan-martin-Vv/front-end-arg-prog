@@ -23,7 +23,7 @@ export class Login2Component implements OnInit {
   isRegisterFail = false;
   loginUser!: Login;
   nuevoUser!: NuevoUsuario;
-  titulo: String = "Login Homerin";
+  titulo: String = "Login";
   //
   log_eMsg: String = '';
   reg_eMsg: String = '';
@@ -85,7 +85,7 @@ export class Login2Component implements OnInit {
     else {
       login = <Login>this.loginForm.getRawValue();
       this.loginUser = new Login(login.nombreUsuario, login.password);
-      console.log("else login nomb: " + login.nombreUsuario + " pass: " + login.password);
+      // console.log("else login nomb: " + login.nombreUsuario + " pass: " + login.password);
     }
     this.authService.loginUser(this.loginUser).subscribe(
       d => {

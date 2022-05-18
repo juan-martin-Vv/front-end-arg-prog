@@ -1,8 +1,19 @@
 :host{
   --rotacion-grados:105deg;
+  --rotacion-grados-over180:0;
+  --progress-color:#0000ff;
 }
-
+.skill{
+  aspect-ratio: 16/10;
+  width: 155px;
+}
+.row {
+  --bs-gutter-x:0;
+}
 .progress {
+  display: block;
+  aspect-ratio: 1/1;
+
   width: 100px;
   height: 100px !important;
 
@@ -10,7 +21,8 @@
   background: none;
   margin: 20px;
   box-shadow: none;
-  position: relative
+  position: relative;
+
 }
 
 .progress:after {
@@ -85,7 +97,7 @@
 }
 
 .progress.blue .progress-bar {
-  border-color: #049dff
+  border-color: var(--progress-color);
 }
 
 .progress.blue .progress-left .progress-bar {
@@ -93,7 +105,7 @@
 }
 
 .progress.yellow .progress-bar {
-  border-color: #fdba04
+  border-color: var(--progress-color);
 }
 
 .progress.yellow .progress-right .progress-bar {
@@ -123,8 +135,8 @@
   }
 
   100% {
-      -webkit-transform: rotate(144deg);
-      transform: rotate(144deg)
+      -webkit-transform: rotate(var(--rotacion-grados-over180));
+      transform: rotate(var(--rotacion-grados-over180))
   }
 }
 

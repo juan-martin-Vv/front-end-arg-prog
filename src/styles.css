@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+
+/******************/
+/* .dark{
+  color-scheme: dark;
+  background-color: #303952;
+  color: white;
+}
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --btn-txt-color: white;
+  --btn-bg-color: rgb(11, 88, 160);
+} */
+/* body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #252222;
+  background-color:aqua;
+  --btn-txt-color: rgb(46, 43, 43);
+  --btn-bg-color: rgb(20, 211, 195);
+}
+
+body {
+  background: var(--bkg-color);
+} */
+
+[data-theme="dark"] {
+  background-color: #303952 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .border-dark{
+  border-color: #0d6efd !important;
+  /* background-color: #303952 !important; */
+  color: #eee;
+}
+
+[data-theme="dark"] .bg-black,[data-theme="dark"] .bg-black.text-white {
+  background-color: rgb(53, 99, 156) !important;
+  color: white !important;
+}
+
+[data-theme="dark"] .bg-dark {
+  background-color: rgb(240, 115, 238) !important;
+  color: rgb(255, 255, 255);
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #222 !important;
+  color: #222;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #000 !important;
+  color: rgb(249, 231, 231);
+}
+[data-theme="dark"] .btn-primary{
+  background-color: #5342b2;
+  color: rgb(226, 250, 250);
+}
+[data-theme="dark"] .text-white{
+  /* background-color: #252222; */
+  color: rgb(14, 23, 23);
+}
+[data-theme="dark"] .text-black{
+  /* background-color: #252222; */
+  color: rgb(225, 232, 232) !important;
+}
+[data-theme="dark"] footer,[data-theme="dark"] .bg-black{
+  background-color: #9b2f86;
+  color: rgb(0, 149, 255);
+}
+[data-theme="dark"] .card{
+  background-color: #255797;
+  color: rgb(234, 229, 229);
+}
+[data-theme="dark"] .fa-brands{
+  background-color: #6f0f5c;
+  color: white;
+}
+[data-theme="dark"] .modal-content,[data-theme="dark"] .form-control{
+  background-color: rgb(39, 38, 38);
+  color:white;
+  border-color: #5342b2;
+}
+[data-theme="dark"] .btn-close{
+  color: #eee;
+  background-color: darkgrey;
+}
+
+/* css miniaturas */
+.miniaturas{
+  aspect-ratio: 16/9;
+  /* width: 100%; */
+  height: 100%;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  align-self: center;
+}
+.miniaturas img {
+  display: block;
+  aspect-ratio: 1/1;
+  object-fit:cover;
+  width: 100%;
+  align-self: center;
+}

@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PerfilDTO, PerfilFromTemplate } from 'src/app/Class/perfil-class';
+import { PerfilDTO, PerfilFromTemplate, PerfilType } from 'src/app/Class/perfil-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
-import { PerfilDTOInterface } from 'src/app/Interface/perfil-interface';
-import { ConectorRestService } from 'src/app/Service/conector-rest.service';
+import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
 import { ToastService } from 'src/app/toast/toast.service';
 
@@ -30,7 +29,7 @@ export class ConfigComponent implements OnInit {
     public modal:NgbActiveModal,
     private formService:ControlService,
     private autService:TokenService,
-    private miApi: ConectorRestService,
+    private miApi: InyectorDataService,
     private toastService: ToastService,
     private cd :ChangeDetectorRef
     )
@@ -40,21 +39,19 @@ export class ConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.perfilDTO=new PerfilDTO();
+    this.getData();
     this.formPerfil=this.formService.toFromGroup(PerfilFromTemplate);
-    this.getData()
     this.formPerfil.setValue(this.perfilDTO);
-    console.log('perfil')
-    console.log(this.perfilDTO)
     this.isAdmin=this.autService.isAdmin();
   }
 
   private getData():void{
     console.log('on innit config')
-    this.miApi.getPerfil().subscribe(
+    this.miApi.cargarPerfil().subscribe(
       d=>{
         this.perfilDTO=d;
         this.formPerfil.setValue(d);
-        console.log(d);
+        // console.log(d);
         this.cd.markForCheck()
       },
       e=>{
@@ -75,10 +72,11 @@ export class ConfigComponent implements OnInit {
   }
   editar(): void {
     if (this.isAdmin) {
-      this.miApi.putPerfil(<PerfilDTOInterface>this.formPerfil.getRawValue())
+      this.miApi.editarrPerfil(this.formPerfil.getRawValue())
         .subscribe(
           d => {
-            this.perfilDTO =<PerfilDTOInterface> d;
+            this.perfilDTO =d;
+
             //console.log("actualizado :", d.id);
           },
           e => {
@@ -89,7 +87,9 @@ export class ConfigComponent implements OnInit {
           () => {
             this.toastService.succes('Se edito correctamente: ' + this.perfilDTO.nombre);
             this.formPerfil = this.formService.toFromGroup(this.formPerfilLabes);
+            this.perfilDTO.fechaNacimiento=this.formPerfil.get('fechaNacimiento')?.value;
             this.formPerfil.setValue(this.perfilDTO);
+            this.miApi.public_dni(this.perfilDTO.dni);//refrescamos todo!!
             this.cd.markForCheck();
           }
         )
@@ -99,7 +99,7 @@ export class ConfigComponent implements OnInit {
   borrar(): void {
     let data: PerfilDTO;
     if (this.isAdmin) {
-      this.miApi.deletePerfil(this.perfilDTO.id || -1)
+      this.miApi.borrarPerfil(this.perfilDTO.dni)
         .subscribe(
           d => {
             this.formPerfil.reset();

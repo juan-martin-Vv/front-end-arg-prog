@@ -6,16 +6,87 @@
     <!---->
     <div class="d-block m-auto mt-0 mostrador ">
       <div class="p-1">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+        <div id="carousel-header-Fade" class="carousel slide carousel-fade " data-bs-ride="carousel">
           <div class="position-relative carousel-inner ">
-            <ng-container *ngFor="let image of images; index as count">
+            <ng-container *ngFor="let image of perfil.image_background_header index as count">
               <div [ngClass]="count==0? 'carousel-item active':'carousel-item'">
                 <img [src]="image">
               </div>
             </ng-container>
+            <button class="btn btn-success position-absolute top-0 end-0 " style="z-index: 100;" [hidden]="!isAdmin" (click)="onEdit(content)"><i
+                class="fa-solid fa-pencil iconos"></i></button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!--  -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar Imagenes</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body d-grid gap-3">
+    <div class="row">
+      <div class="col-4 ">
+        <div class="img-thumbnail mostrador"><img [src]="FaceForm.controls['face'].value" alt="" ></div>
+      </div>
+      <div class="col-5 ">
+        <form [formGroup]="FaceForm" class=" border-1 ">
+          <div *ngFor="let Dato of ImageFace">
+            <sheld-control [etiquetas]="Dato" [form]="FaceForm"></sheld-control>
+          </div>
+        </form>
+      </div>
+      <div class="col-3 d-grid gap-2">
+        <button class="btn btn-success w-100" (click)="addImage(addTempl,imagen_face)">add</button>
+        <button class="btn btn-danger w-100" (click)="imagen_face=deleteImage(imagen_face,FaceForm.get('face')?.value)">remove</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="img-thumbnail mostrador"><img [src]="BanerForm.controls['banner'].value" alt=""></div>
+      </div>
+      <div class="col-5 d-inline-block justify-content-center align-content-center">
+        <div>
+          <form [formGroup]="BanerForm" class=" border-1 ">
+            <div *ngFor="let Dato of ImageBanner">
+              <sheld-control [etiquetas]="Dato" [form]="BanerForm"></sheld-control>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-3 d-grid gap-2">
+        <button class="btn btn-success w-100" (click)="addImage(addTempl,imagen_banner)">add</button>
+        <button class="btn btn-danger w-100" (click)="imagen_banner=deleteImage(imagen_banner,BanerForm.get('banner')?.value)">remove</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-secondary" (click)="save()">Save</button>
+  </div>
+</ng-template>
+<!--  -->
+<ng-template #addTempl let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar Imagen</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body d-block">
+    <div class="row">
+      <div class="img-thumbnail mostrador-add"><img [src]="imageTemp" alt="" id="image_l"></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="url" [value]="imageTemp" class="w-100" [(ngModel)]="imageTemp" >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success w-100"(click)="addImages(array_target);c('Save click')">add</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

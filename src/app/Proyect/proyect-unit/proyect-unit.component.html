@@ -1,16 +1,26 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Nombre: {{proyDto.nombre}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Lenguaje: {{proyDto.lenguaje}}</h6>
-    <p class="card-text">Descripcion: {{proyDto.descripcion}}<br>
+    <div class="row">
+      <div class="col-3 miniaturas">
+        <img [src]="proyDto.image" class="img-thumbnail">
+      </div>
+      <div class="col-9">
+        <h4 class="card-title">Nombre: {{proyDto.nombre}}</h4>
+        <h5 class="card-subtitle mb-2">Lenguaje: {{proyDto.lenguaje}}</h5>
+        <p class="card-text">Descripcion: {{proyDto.descripcion}}<br>
+        <h6 class="card-text">Repo : <span class="link-primary text text-decoration-underline" role="button" (click)="gotoUrl()">GitHub</span></h6>
+        <button type="button"
+          [hidden]="false" class="btn btn-success me-0"
+          data-bs-toggle="modal"
+          [id]="butonId"
+          [attr.data-bs-target]="'#modal'+butonId">
+          <span class="text-lg-center">{{isAdmin? 'Editar':'Ver detalles'}}</span>
+        </button>
+      </div>
+    </div>
+
   </div>
-  <button type="button"
-        [hidden]="false" class="btn btn-success me-0"
-        data-bs-toggle="modal"
-        [id]="butonId"
-        [attr.data-bs-target]="'#modal'+butonId">
-        <span class="text-lg-center">{{isAdmin? 'Editar':'Ver detalles'}} :{{proyDto.id}}</span>
-  </button>
+
 
   <div class="modal fade" [id]="'modal'+butonId" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
     <app-dashboard>

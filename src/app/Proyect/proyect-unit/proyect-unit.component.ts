@@ -99,4 +99,7 @@ export class ProyectUnitComponent implements OnInit {
         )
     }
   }
+  gotoUrl(){
+    window.open(this.proyDto.linkGit.includes('https://')?this.proyDto.linkGit.toString():`http://${this.proyDto.linkGit}`,"blank");
+  }
 }

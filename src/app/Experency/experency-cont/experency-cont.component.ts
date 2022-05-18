@@ -98,5 +98,5 @@ export class ExperencyContComponent implements OnInit {
     this.getData()
   }
   Dto: ExperienciaDTO[] = [];
-  titulo: String = "Experiencia Laboral";
+  titulo: String = "Experiencia";
 }

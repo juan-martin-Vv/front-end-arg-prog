@@ -1,8 +1,6 @@
-import { ControlModel, EntradaFechas, EntradaTexto, NullFieldForm, restriccion } from "../formulario/control-model";
-import { ExperencyInterface, ExperienciaDTOInterface } from "../Interface/experency-interface";
+import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm, restriccion } from "../formulario/control-model";
 
-
-export class ExperencyClass implements ExperencyInterface
+export class ExperencyClass
 {
   constructor(pue?:String,iniFech?:Date,finalFech?:Date,enti?:String,desc?:String){
     this.puesto=pue??"zzzz";
@@ -18,7 +16,7 @@ export class ExperencyClass implements ExperencyInterface
   descripcion!: String | null;
 
 }
-export class ExperienciaDTO implements ExperienciaDTOInterface{
+export class ExperienciaDTO {
   id!: number | null;
   institucion!: String;
   puesto!: String;
@@ -55,9 +53,9 @@ export const ExperiencaFromTemplate:ControlModel<String>[] =[
       required:false,
       order:3
     }),
-    new EntradaTexto({
+    new ImagenForm({
       key:'image',
-      label:'Imagen :'
+      label:'Logo o Imagen:'
     }),
     new EntradaFechas({
       key:'inicio',

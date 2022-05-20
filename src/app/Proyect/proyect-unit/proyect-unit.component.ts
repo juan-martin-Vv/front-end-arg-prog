@@ -55,8 +55,10 @@ export class ProyectUnitComponent implements OnInit {
     return this.proyectForm.valid;
   }
   editar(): void {
+    let data = new ProyectoDTO()
+    data=<ProyectoDTO>this.proyectForm.getRawValue();
     if (this.isAdmin) {
-      this.miApi.editarProyectos(<ProyectoDTO>this.proyectForm.getRawValue())
+      this.miApi.editarProyectos(data)
         .subscribe(
           d => {
             this.proyDto = d;

@@ -1,31 +1,14 @@
-import { Inject } from "@angular/core";
 import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm } from "../formulario/control-model";
 
-export class EducationClass {
 
-  constructor(titu?:String,fechOb?:Date,@Inject(Boolean) comlp?:boolean ,emi?:String,desc?:String)
-  {
-    this.titulo=titu??"Panson";
-    this.fechaObtencion=fechOb?? new Date();
-    this.completado=comlp ?? true;
-    this.emisorTitulo=emi??"Cantina de Mou";
-    this.descripcion=desc??"Tomar serveza hasta fallecer";
-  }
-  titulo!: String;
-  fechaObtencion!: Date;
-  completado!: boolean;
-  emisorTitulo!: String;
-  descripcion!: String | null;
-
- }
  export class EducacionDTO {
    id!: number | null;
    institucion!: String;
    titulo!: String;
    image!: String | null;
    carrera!: string | null;
-   inicio!: Date;
-   fin!: Date | null;
+   inicio!: String;
+   fin!: String | null;
  }
 
  export const EducacionFormTemplate:ControlModel<String>[] =[

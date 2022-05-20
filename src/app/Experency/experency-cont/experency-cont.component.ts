@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ExperencyClass, ExperiencaFromTemplate, ExperienciaDTO } from 'src/app/Class/experency-class';
+import { ExperiencaFromTemplate, ExperienciaDTO } from 'src/app/Class/experency-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';

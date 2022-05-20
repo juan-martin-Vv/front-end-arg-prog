@@ -5,13 +5,12 @@ import { ConfigComponent } from 'src/app/About/config/config.component';
 import { Login2Component } from 'src/app/login2/login2.component';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
-import { ToastService } from 'src/app/toast/toast.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  //changeDetection:ChangeDetectionStrategy.Default
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements  OnInit{
   dni_actual!:number;
@@ -27,35 +26,10 @@ export class MainComponent implements  OnInit{
     private router: Router,
     private modalService: NgbModal,
     private ruta: ActivatedRoute,
-    private toast:ToastService,
     private cd:ChangeDetectorRef
   ) {
 
    }
-
-  printDate():void{
-
-    let ms_per_day=1000*60*60*24;
-    let creado=1648435844
-    let expirado=1648439444
-    // 1648439444   //sin millisec
-    // 1649199837218
-    // 1649199837218
-    // 1649200454287
-    // 761366212
-    let ahora=Date.now()
-     console.log(new Date(creado*1000))
-  //   console.log(new Date(expirado*1000))
-  //   console.log(new Date(ahora))
-  // console.log('tiempo en number: '+new Date(Date.now()).valueOf());
-  //   if (expirado<ahora) {
-  //     console.log('token expirado hacia :')
-  //     console.log((ahora-(expirado*1000))/1000*60*60)
-
-  // console.log(new Date(ahora-expirado*1000))
-    //}
-  }
-
   ngOnInit(): void {
     this.ruta.queryParams.subscribe(
       d=>{
@@ -93,7 +67,6 @@ export class MainComponent implements  OnInit{
         }
       }
     )
-    this.printDate()
     this.loadPerfirl()
   }
   private loadPerfirl(){

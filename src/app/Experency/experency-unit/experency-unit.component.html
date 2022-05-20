@@ -25,7 +25,7 @@
     <app-dashboard>
       <div name="titulo" class="d-block align-baseline ">Detalles <span [ngClass]="isAdmin? 'fa fa-edit ':'fa fa-search'"></span>  </div>
       <div name="cuerpo">
-        <h3>Id [{{Dto.id}}]</h3>
+        <!-- <h3>Id [{{Dto.id}}]</h3> -->
         <form (ngSubmit)="editar()" [formGroup]="Form" class="mb-3 border-1 ">
           <div *ngFor="let Dato of FormLabes">
             <sheld-control [etiquetas]="Dato" [form]="Form"></sheld-control>

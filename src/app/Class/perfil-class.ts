@@ -4,13 +4,30 @@ import { ExperienciaDTO } from "./experency-class";
 import { ProyectoDTO } from "./proyect-class";
 import { Skill } from "./skill";
 
-
-export class PerfilDTO {
+export interface PerfilDTOInt{
+  id: number | null;
+  nombre: String;
+  apellido: String;
+  dni: number;
+  fechaNacimiento: String | null;
+  nacionalidad: String;
+  email: String;
+  descripcion: String | null;
+  profesionalPerfil: String |null;
+  image_background_header: String[] | null;
+  image_perfil: String[] | null;
+  experiencia: ExperienciaDTO[] | null;
+  educacion: EducacionDTO[] | null;
+  proyectos: ProyectoDTO[] | null;
+  skill:Skill[] | null;
+  type:PerfilType;
+}
+export class PerfilDTO implements PerfilDTOInt{
   id!: number | null;
   nombre!: String;
   apellido!: String;
   dni!: number;
-  fechaNacimiento!: Date | null;
+  fechaNacimiento: String |null;
   nacionalidad!: String;
   email!: String;
   descripcion!: String | null;
@@ -28,7 +45,7 @@ export class PerfilDTO {
   this.nombre='';
   this.apellido='';
   this.dni=0;
-  this.fechaNacimiento=new Date()
+  this.fechaNacimiento='';
   this.nacionalidad='';
   this.email='';
   this.descripcion='';

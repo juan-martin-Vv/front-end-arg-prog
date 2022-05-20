@@ -48,7 +48,7 @@ export class NullFieldForm extends ControlModel<string>
 }
 export class EntradaFechas extends ControlModel<string>
 {
-  override controlType ='textbox';
+  override controlType ='dateBox';
   override type ='date';
 }
 export class RadioButton extends ControlModel<string> {

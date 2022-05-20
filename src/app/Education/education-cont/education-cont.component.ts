@@ -36,7 +36,7 @@ export class EducationContComponent implements OnInit {
       this.miApi.cargarEducacion(this.dni_actual).subscribe(
         d => {
           this.Dto = d;
-          console.log('educaion :' + this.dni_actual)
+          // console.log('educaion :' + this.dni_actual)
         },
         e => {
           this.toast.show('Error :' + e)

@@ -16,8 +16,6 @@ export class AboutComponent implements OnInit {
   imagen_perfil: String[]=[];
   constructor(
     private misDatosService: InyectorDataService,
-    // private miServicio: ConectorRestService
-
   ) {
     // this.images = [...this.images
     //   , '../../../assets/Homer-simpson.jpg'

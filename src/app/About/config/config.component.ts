@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PerfilDTO, PerfilFromTemplate, PerfilType } from 'src/app/Class/perfil-class';
+import { PerfilDTO, PerfilDTOInt, PerfilFromTemplate, PerfilType } from 'src/app/Class/perfil-class';
 import { ControlModel } from 'src/app/formulario/control-model';
 import { ControlService } from 'src/app/formulario/control.service';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
@@ -24,7 +25,7 @@ export class ConfigComponent implements OnInit {
   formPerfilLabes:ControlModel<String>[]=PerfilFromTemplate;
   isAdmin!: boolean;
   dni_actual!:number;
-  perfilDTO!:PerfilDTO;
+  perfilDTO:PerfilDTO=new PerfilDTO();
   constructor(
     public modal:NgbActiveModal,
     private formService:ControlService,
@@ -42,6 +43,7 @@ export class ConfigComponent implements OnInit {
     this.getData();
     this.formPerfil=this.formService.toFromGroup(PerfilFromTemplate);
     this.formPerfil.setValue(this.perfilDTO);
+    // this.formPerfil.controls['fechaNacimiento'].setValue(new Date(1652929200000).toISOString());
     this.isAdmin=this.autService.isAdmin();
   }
 
@@ -51,7 +53,7 @@ export class ConfigComponent implements OnInit {
       d=>{
         this.perfilDTO=d;
         this.formPerfil.setValue(d);
-        // console.log(d);
+        console.log('get DAta',d);
         this.cd.markForCheck()
       },
       e=>{
@@ -71,24 +73,27 @@ export class ConfigComponent implements OnInit {
     return this.formPerfil.valid;
   }
   editar(): void {
+    let data = new PerfilDTO();
+    data=this.formPerfil.getRawValue();
+    console.log(data);
     if (this.isAdmin) {
-      this.miApi.editarrPerfil(this.formPerfil.getRawValue())
+      this.miApi.editarrPerfil(data)
         .subscribe(
           d => {
-            this.perfilDTO =d;
-
-            //console.log("actualizado :", d.id);
+            this.perfilDTO =<PerfilDTOInt>d;
+            this.perfilDTO.fechaNacimiento=data.fechaNacimiento;
           },
           e => {
-            //this.errorMsg = e
             this.toastService.danger('Error :' + e);
             this.cd.markForCheck();
           },
           () => {
             this.toastService.succes('Se edito correctamente: ' + this.perfilDTO.nombre);
             this.formPerfil = this.formService.toFromGroup(this.formPerfilLabes);
-            this.perfilDTO.fechaNacimiento=this.formPerfil.get('fechaNacimiento')?.value;
             this.formPerfil.setValue(this.perfilDTO);
+            // this.formPerfil.value.fechaNacimiento='2020-2-2';
+            // console.log(this.perfilDTO.fechaNacimiento);
+            // console.log(this.formPerfil)
             this.miApi.public_dni(this.perfilDTO.dni);//refrescamos todo!!
             this.cd.markForCheck();
           }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { ControlModel } from '../control-model';
@@ -41,6 +42,17 @@ import { ControlModel } from '../control-model';
         (form.untouched?  'form-control' :( isValid? 'form-control is-valid':'form-control is-invalid' ))
         : 'form-control'"
         >
+
+        <input  *ngSwitchCase="'dateBox'"
+        [formControlName]="etiquetas.key"
+        [id]="etiquetas.key+formName"
+        [type]="etiquetas.type"
+        pattern="\d{4}-\d{2}-\d{2}"
+
+        [ngClass]="etiquetas.required?
+        (form.untouched?  'form-control' :( isValid? 'form-control is-valid':'form-control is-invalid' ))
+        : 'form-control'"
+        >
       <select *ngSwitchCase="'dropdown'" [formControlName]="etiquetas.key" [id]="etiquetas.key+formName" Class="form-select">
         <option *ngFor="let opcion of etiquetas.options; index as i"
           [attr.selected]="i==0? 'true':null"
@@ -76,6 +88,7 @@ import { ControlModel } from '../control-model';
 </ng-template>
 `,
   styleUrls: ['./control.component.css'],
+  providers: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent implements OnInit {
@@ -87,10 +100,15 @@ export class ControlComponent implements OnInit {
   tempData!: string;
   formName: String = '';
   error: string = "error";
-  constructor() { }
+  constructor(private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.formName = Math.random().toString();
+  }
+  dateGet(valueIn:string):string{
+    console.log('valueIn: ',valueIn);
+    console.log(this.datePipe.transform(new Date(valueIn),'yyyy-MM-dd','es-ES'));
+    return <string>this.datePipe.transform(valueIn,'yyyy-MM-dd','es-ES');
   }
   get isValid() {
     return this.form.controls[this.etiquetas.key].valid;

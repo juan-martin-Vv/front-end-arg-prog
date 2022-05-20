@@ -64,9 +64,8 @@ export class ExperencyUnitComponent implements OnInit {
         .subscribe(
           d => {
             this.Dto = d;
-            this.Dto.inicio=saveDto.inicio //para evitar el parseo de string -> date y vice
-            this.Dto.fin=saveDto.fin       //para evitar el parseo de string -> date y vice
-            //console.log("actualizado :", d.id);
+            this.Dto.inicio=saveDto.inicio
+            this.Dto.fin=saveDto.fin
           },
           e => {
             this.errorMsg = e

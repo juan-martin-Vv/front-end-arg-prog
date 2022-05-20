@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AboutClass } from '../Class/about-class';
-import { EducacionDTO, EducationClass } from '../Class/education-class'
+import { EducacionDTO } from '../Class/education-class'
 import { ExperienciaDTO } from '../Class/experency-class';
 import { PerfilDTO } from '../Class/perfil-class';
 import { ProyectoDTO } from '../Class/proyect-class';

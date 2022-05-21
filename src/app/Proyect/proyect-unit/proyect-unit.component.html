@@ -7,8 +7,10 @@
       <div class="col-9">
         <h4 class="card-title">Nombre: {{proyDto.nombre}}</h4>
         <h5 class="card-subtitle mb-2">Lenguaje: {{proyDto.lenguaje}}</h5>
-        <p class="card-text">Descripcion: {{proyDto.descripcion}}<br>
+        <p class="card-text">Descripcion: {{proyDto.descripcion}}</p>
+        <br>
         <h6 class="card-text">Repo : <span class="link-primary text text-decoration-underline" role="button" (click)="gotoUrl()">GitHub</span></h6>
+        <br>
         <button type="button"
           [hidden]="false" class="btn btn-success me-0"
           data-bs-toggle="modal"

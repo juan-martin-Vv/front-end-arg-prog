@@ -82,7 +82,7 @@ export class MainComponent implements  OnInit{
       ()=>{
         this.dni_actual=dni;
         this.miServicio.public_dni(this.dni_actual);    //emitimos dni a los otros servicios
-        console.log("main dice dni a cargar: "+this.dni_actual);
+        // console.log("main dice dni a cargar: "+this.dni_actual);
         this.is_admin=this.miAuth.isAdmin();
         this.cd.markForCheck()
       }

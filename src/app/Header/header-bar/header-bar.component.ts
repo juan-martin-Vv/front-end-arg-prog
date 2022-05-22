@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { timeInterval, timeout } from 'rxjs/operators';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { NO_TOKEN, TokenService } from 'src/app/Service/token.service';
 @Component({
@@ -22,36 +23,22 @@ export class HeaderBarComponent implements OnInit {
     private miApi :InyectorDataService
   ) { }
 
-  @HostListener('window:scroll', ['$event']) onscroll() {
-    console.log('doc height :'+ document.documentElement.scrollHeight)
-    console.log('nav height :'+document.getElementById('navBar')?.scrollHeight)
-    console.log('window height:'+window.screen.height)
-    if (this.flag) {
-
-      this.flag=false;
-
+  @HostListener('window:scroll', ['$event'])  onscroll() {
+    // console.log('doc height :'+ document.documentElement.scrollHeight)
+    // console.log('doc width :'+ document.documentElement.scrollWidth)
+    // console.log('nav height :'+document.getElementById('navBar')?.scrollHeight)
+    // console.log('window height:'+window.screen.height)
+    if(window.scrollY>5 &&(document.documentElement.scrollHeight-(window.screen.height+5)))
+    {
+      document.documentElement.style.marginTop=String(<number>document.getElementById('navBar')?.scrollHeight)+'px';
+      // console.log('margin top:'+document.documentElement.style.marginTop.valueOf())
+      // document.body.style.width=String(screen.width)+'px'
+      this.navbarfixed=true;
     }
-    if (window.scrollY >5) {
-      if(
-         window.screen.height<document.documentElement.scrollHeight
-      )
-      {
-        console.log('true 1')
-        if((document.documentElement.scrollHeight-<number>document.getElementById('navBar')?.scrollHeight)>(window.screen.height+<number>document.getElementById('navBar')?.scrollHeight/2)){
-          this.navbarfixed = true;
-          this.flag=true
-          // console.log('true 2')
-          // console.log('y pos:',window.scrollY)
-        }
-      }
-
+    else {
+      document.documentElement.style.marginTop='0px'
+      this.navbarfixed=false;
     }
-    else if(this.navbarfixed && !this.flag )  {
-      // console.log('off')
-      // console.log('y pos:',window.scrollY)
-      this.navbarfixed = false;
-    }
-
   }
   ngOnInit(): void {
      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {

@@ -6,6 +6,7 @@ import { EntradaTexto, ListaDlesplegable } from 'src/app/formulario/control-mode
 import { ControlService } from 'src/app/formulario/control.service';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 import { TokenService } from 'src/app/Service/token.service';
+import { ToastService } from 'src/app/toast/toast.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   showNavigationIndicators = false;
 
 
-  images = [1055, 194, 368].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  // images = [1055, 194, 368].map((n) => `https://picsum.photos/id/${n}/900/500`);
   ImageBanner = [
     new ListaDlesplegable({
       key: 'banner',
@@ -42,7 +43,8 @@ export class HeaderComponent implements OnInit {
     private miApi: InyectorDataService,
     private miAuth: TokenService,
     private modal: NgbModal,
-    private formService: ControlService
+    private formService: ControlService,
+    private toast:ToastService
   ) {
     this.perfil = new PerfilDTO();
     config.showNavigationArrows = true;
@@ -130,11 +132,12 @@ export class HeaderComponent implements OnInit {
       this.miApi.editarrPerfil(this.perfil).subscribe(
         d => {
           this.perfil = d;
+          this.toast.succes("Se guardo correctamente los Cambios");
           // console.log('retorno :')
           // console.log(d);
         },
         e=>{
-
+          this.toast.danger("Se Produjo un error!!!");
         },
         ()=>{
           this.cargarPerfirl();

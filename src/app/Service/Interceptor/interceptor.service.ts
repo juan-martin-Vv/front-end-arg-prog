@@ -121,16 +121,13 @@ export class InterceptorService implements HttpInterceptor {
               //console.log(error)
               return throwError(error.error); //devuelvo el mensaje de API a componente
             case 401:      //login
-              console.log('refress :'+this.refresToken(error))
+              // console.log('refress :'+this.refresToken(error))
               //console.log(error.error);
               if (this.refresToken(error)) { //tomo la respuesta y verifico si hay refrest
                 console.log('refrescando')
-
-
                 inReq = this.addToken(inReq, this.tokenService.getToken());
                 return next.handle(inReq) // reintentamos con un nuevo token
                 }
-
               this.router.navigateByUrl('/?login=off');
               return throwError('error session caducada')
             case 403:     //forbidden

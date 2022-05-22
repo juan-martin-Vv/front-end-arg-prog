@@ -23,7 +23,9 @@ body {
 body {
   background: var(--bkg-color);
 } */
-
+body {
+  margin-top: 0;
+}
 [data-theme="dark"] {
   background-color: #303952 !important;
   color: #eee;

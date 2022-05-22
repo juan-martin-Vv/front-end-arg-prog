@@ -27,7 +27,7 @@
   position: fixed;
   transition:  350ms ease-in;
   margin-left: 0px;
-  margin-right: 0px;
+  margin-right: 2px;
   /* height: 68px; */
   z-index: 500;
   top: 0px;

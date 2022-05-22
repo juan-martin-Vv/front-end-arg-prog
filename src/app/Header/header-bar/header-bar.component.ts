@@ -60,7 +60,7 @@ export class HeaderBarComponent implements OnInit {
   }
   Logged(){
     this.isLogged=false;
-    console.log(this.miAuth.getUserName())
+    // console.log(this.miAuth.getUserName())
     if(this.miAuth.getToken().includes(NO_TOKEN))
     {
       this.isLogged=false;

@@ -38,7 +38,7 @@ export class AboutComponent implements OnInit {
           }else
           {
             this.imagen_perfil =[image_face_default];
-            console.log('imagen por default')
+            // console.log('imagen por default')
           }
           // console.log("about images: ")
           // console.log( this.imagen_perfil);

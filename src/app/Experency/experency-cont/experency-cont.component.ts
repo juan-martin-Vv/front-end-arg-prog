@@ -91,7 +91,7 @@ export class ExperencyContComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('experiencia on!')
+    // console.log('experiencia on!')
     this.saveForm=this.miFromServic.toFromGroup(this.saveFormLabes);
     this.miApi.dni_actual.subscribe(d=>{this.dni_actual=d;this.getData();});
     this.tokenService.isAdminObs.subscribe(d=>{this.admin=d;this.cd.markForCheck()});

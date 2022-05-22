@@ -89,7 +89,6 @@ export class SkillContComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('proyect on!');
     this.miApi.dni_actual.subscribe(d=>{
       this.dni_actual=d;
       this.getData();

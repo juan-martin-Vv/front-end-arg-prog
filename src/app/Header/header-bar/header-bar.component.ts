@@ -15,17 +15,40 @@ export class HeaderBarComponent implements OnInit {
   isLogged!: boolean;
   navbarfixed: boolean = false;
   themeDark: boolean = false;
+  flag!:boolean;
+
   constructor(
     private miAuth: TokenService,
     private miApi :InyectorDataService
   ) { }
 
   @HostListener('window:scroll', ['$event']) onscroll() {
-    if (window.scrollY > 50) {
-      this.navbarfixed = true;
+    console.log('doc height :'+ document.documentElement.scrollHeight)
+    console.log('nav height :'+document.getElementById('navBar')?.scrollHeight)
+    console.log('window height:'+window.screen.height)
+    if (this.flag) {
+
+      this.flag=false;
 
     }
-    else {
+    if (window.scrollY >5) {
+      if(
+         window.screen.height<document.documentElement.scrollHeight
+      )
+      {
+        console.log('true 1')
+        if((document.documentElement.scrollHeight-<number>document.getElementById('navBar')?.scrollHeight)>(window.screen.height+<number>document.getElementById('navBar')?.scrollHeight/2)){
+          this.navbarfixed = true;
+          this.flag=true
+          // console.log('true 2')
+          // console.log('y pos:',window.scrollY)
+        }
+      }
+
+    }
+    else if(this.navbarfixed && !this.flag )  {
+      // console.log('off')
+      // console.log('y pos:',window.scrollY)
       this.navbarfixed = false;
     }
 

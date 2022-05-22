@@ -1,11 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { image_face_default, PerfilDTO } from 'src/app/Class/perfil-class';
 import { InyectorDataService } from 'src/app/Service/inyector-data.service';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent implements OnInit {
 
@@ -16,6 +17,7 @@ export class AboutComponent implements OnInit {
   imagen_perfil: String[]=[];
   constructor(
     private misDatosService: InyectorDataService,
+    private cd:ChangeDetectorRef
   ) {
     // this.images = [...this.images
     //   , '../../../assets/Homer-simpson.jpg'
@@ -48,7 +50,11 @@ export class AboutComponent implements OnInit {
           // console.log('imagen por default')
           //console.log(e);
           //throw e;
+        },
+        ()=>{
+          this.cd.markForCheck();
         }
+
       )
     };
 

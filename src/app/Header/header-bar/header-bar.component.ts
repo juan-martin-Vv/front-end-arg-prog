@@ -30,13 +30,13 @@ export class HeaderBarComponent implements OnInit {
     // console.log('window height:'+window.screen.height)
     if(window.scrollY>5 &&(document.documentElement.scrollHeight-(window.screen.height+5)))
     {
-      document.documentElement.style.marginTop=String(<number>document.getElementById('navBar')?.scrollHeight)+'px';
+      document.body.style.marginTop=String(<number>document.getElementById('navBar')?.scrollHeight)+'px';
       // console.log('margin top:'+document.documentElement.style.marginTop.valueOf())
       // document.body.style.width=String(screen.width)+'px'
       this.navbarfixed=true;
     }
     else {
-      document.documentElement.style.marginTop='0px'
+      document.body.style.marginTop='0px'
       this.navbarfixed=false;
     }
   }

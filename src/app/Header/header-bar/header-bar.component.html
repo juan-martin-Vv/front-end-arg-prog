@@ -6,25 +6,25 @@
           <img src="../../../assets/APLogo-20-20.png" style="background-color: blue; height: 60px; width: auto;">
         </a>
       </div>
-      <div class="d-inline-bloc p-1">
-        <a href="https://argentinaprograma.inti.gob.ar/" class="text-decoration-none"># YO PROGRAMO</a>
+      <div class="d-inline-bloc p-1 pe-2">
+        <a href="https://argentinaprograma.inti.gob.ar/" class="text-decoration-none">#YO PROGRAMO</a>
       </div>
     </div>
     <div class="d-flex align-items-center  justify-content-between">
       <div class="d-inline-block ">
         <div>
-          <a class="btn btn-block btn-social btn-twitter" href="https://twitter.com/?lang=es">
+          <a class="d-none d-sm-inline-block btn btn-block btn-social btn-twitter" href="https://twitter.com/?lang=es">
             <span class="fa-brands fa-twitter fa-lg iconos"></span>
           </a>
           <a class="btn btn-block btn-social btn-github" href="https://github.com/juan-martin-Vv">
             <span class="fa-brands fa-github fa-lg iconos"></span>
           </a>
-          <a class="btn btn-block btn-social btn-facebook" href="https://es-la.facebook.com/">
+          <a class="d-none d-sm-inline-block btn btn-block btn-social btn-facebook" href="https://es-la.facebook.com/">
             <span class="fa-brands fa-facebook-square fa-lg iconos"></span>
           </a>
         </div>
       </div>
-      <div class="d-flex align-items-center p-2">
+      <div class="d-flex align-items-center justify-content-end  p-2">
         <a role="button" class="rounded rounded-circle h-75 align-content-center m-2 text text-black " (click)="swichtTheme()"><i class="fa-solid"[ngClass]="themeDark?'fa-moon':'fa-sun'"></i></a>
         <button type="button" class="btn btn-primary m-1" [routerLink]="['/']"
           [queryParams]="{login: isLogged?'out':'on'}" (click)="Logged()" >{{isLogged? 'LogOut':'LogIn'}}</button>

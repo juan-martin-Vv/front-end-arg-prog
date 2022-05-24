@@ -8,6 +8,7 @@ import { ControlModel } from '../formulario/control-model';
 import { ControlService } from '../formulario/control.service';
 import { AuthService } from '../Service/auth.service';
 import { TokenService } from '../Service/token.service';
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'app-login2',
@@ -45,7 +46,7 @@ export class Login2Component implements OnInit {
     private router: Router,
     private formService: ControlService,
     private cd: ChangeDetectorRef,
-    //
+    private toast:ToastService,
     public activeModal: NgbActiveModal
   ) { }
   goHome(): void {
@@ -90,7 +91,7 @@ export class Login2Component implements OnInit {
     this.authService.loginUser(this.loginUser).subscribe(
       d => {
         this.tokenService.setToken(d.token);
-
+        this.toast.succes("Bienvenido ".concat(this.tokenService.isAdmin()? "Administrador ":"Usuario ").concat(<string>this.tokenService.getUserName()));
       },
       e => {
         this.isLogged = false;
@@ -100,6 +101,7 @@ export class Login2Component implements OnInit {
         this.cd.detectChanges()
       },
       () => {
+        this.loginForm.reset();
         this.tokenService.isAdmin();// verificamos si es admin y emitimos!!
         this.isLogged = true;
         this.isLoggedFail = false;
@@ -112,7 +114,8 @@ export class Login2Component implements OnInit {
     let nuevo_user: NuevoUsuario;
     nuevo_user = <NuevoUsuario>this.nuevoUsurioForm.getRawValue(); //formulario ya validado
     this.authService.nuevoUser(nuevo_user).subscribe(
-      d => {},
+      d => {
+      },
       e => {
         this.isRegister = false;
         this.isRegisterFail = true;

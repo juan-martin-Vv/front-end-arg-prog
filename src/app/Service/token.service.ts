@@ -19,6 +19,7 @@ export class TokenService {
 
   private isAdminVar = new BehaviorSubject<boolean>(false);
   isAdminObs=this.isAdminVar.asObservable();
+  private nameUser: String='';
   //
 
   public setToken(token: String): void {
@@ -33,7 +34,11 @@ export class TokenService {
   //
 
   public getUserName(): String {
-    let l = window.sessionStorage.getItem(USER_NAME) || NO_TOKEN;
+
+    let l=this.nameUser;
+    if(!this.getAuthoritys().length){
+      l = window.sessionStorage.getItem(USER_NAME) || NO_TOKEN;
+    }
     return l.toString();
   }
   //
@@ -51,6 +56,7 @@ export class TokenService {
       //
       body = JSON.parse(raw.toString());
       rol = body.privilegios;
+      this.nameUser=body.sub;
       //console.log(rol);
       rol?.forEach((e) => { this.roles.push(e.authority) });
     }

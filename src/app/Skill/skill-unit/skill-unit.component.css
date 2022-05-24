@@ -4,10 +4,14 @@
   --progress-color:#0000ff;
 }
 .skill{
-  aspect-ratio: 16/10;
+  /* aspect-ratio: 16/10; */
   width: 155px;
+  border-radius: 5px;
 }
-.row {
+.skill .habilidad{
+  font-size: 16px;
+}
+.skill .row {
   --bs-gutter-x:0;
 }
 .progress {

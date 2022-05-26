@@ -48,12 +48,12 @@ export class ConfigComponent implements OnInit {
   }
 
   private getData():void{
-    console.log('on innit config')
+    // console.log('on innit config')
     this.miApi.cargarPerfil().subscribe(
       d=>{
         this.perfilDTO=d;
         this.formPerfil.setValue(d);
-        console.log('get DAta',d);
+        // console.log('get DAta',d);
         this.cd.markForCheck()
       },
       e=>{
@@ -75,7 +75,7 @@ export class ConfigComponent implements OnInit {
   editar(): void {
     let data = new PerfilDTO();
     data=this.formPerfil.getRawValue();
-    console.log(data);
+    // console.log(data);
     if (this.isAdmin) {
       this.miApi.editarrPerfil(data)
         .subscribe(

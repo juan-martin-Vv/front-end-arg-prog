@@ -56,7 +56,10 @@ export const ProyectFromTemplate:ControlModel<String>[] =[
     }),
     new EntradaTexto({
       key:'linkGit',
-      label:'Repositorio GitHub :'
+      label:'Repositorio GitHub :',
+      restricciones:[
+        {restriccion:restriccion.required}
+      ]
     })
 
 ]

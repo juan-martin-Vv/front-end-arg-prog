@@ -72,16 +72,30 @@ export const PerfilFromTemplate =[
   }),
   new EntradaTexto({
     key:'nombre',
-    label:'Nombre :'
+    label:'Nombre :',
+    required:true,
+    restricciones:[
+      {restriccion:restriccion.required}
+    ]
+
   }),
   new EntradaTexto({
     key:'apellido',
-    label:'Apellido :'
+    label:'Apellido :',
+    required:true,
+    restricciones:[
+      {restriccion:restriccion.required}
+    ]
   }),
   new EntradaTexto({
     key:'dni',
     label:'DNI :',
-    type:'number'
+    type:'number',
+    required:true,
+    restricciones:[
+      {restriccion:restriccion.required},
+      {restriccion:restriccion.min,valor:'4000000',errores:'Introdusca un DNI correto'}
+    ]
   }),
   new EntradaFechas({
     key:'fechaNacimiento',
@@ -89,7 +103,11 @@ export const PerfilFromTemplate =[
   }),
   new EntradaTexto({
     key:'nacionalidad',
-    label:'Nacionalidad :'
+    label:'Nacionalidad :',
+    required:true,
+    restricciones:[
+      {restriccion:restriccion.required}
+    ]
   }),
   new EntradaTexto({
     key:'email',

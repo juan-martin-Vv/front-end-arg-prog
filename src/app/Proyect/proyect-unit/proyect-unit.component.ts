@@ -51,7 +51,7 @@ export class ProyectUnitComponent implements OnInit {
     this.proyectForm.setValue(this.proyDto);
     //console.log('cerrear task()')
   }
-  isValid():boolean{
+  get isValid():boolean{
     return this.proyectForm.valid;
   }
   editar(): void {

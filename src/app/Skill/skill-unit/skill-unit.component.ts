@@ -96,7 +96,7 @@ deshacer():void{
   this.saveSkillForm = this.miFromServic.toFromGroup(this.saveSkillFormLabes);
   this.saveSkillForm.setValue(this.SkillDTO);
 }
-isValid():boolean{
+get isValid():boolean{
   return this.saveSkillForm.valid;
 }
 editar(): void {

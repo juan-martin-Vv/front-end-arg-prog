@@ -11,7 +11,13 @@ export const SkillTemplateForm=[
   }),
   new EntradaTexto({
     key:'skill',
-    label:'Tipo de Skill'
+    label:'Tipo de Skill',
+    required:true,
+    restricciones:[
+      {restriccion:restriccion.required},
+      {restriccion:restriccion.minlength,valor:'4'},
+      {restriccion:restriccion.maxlength,valor:'15',errores:'no mas de 15 chart'}
+    ]
   }),
   new EntradaTexto({
     key:'value',
@@ -19,6 +25,7 @@ export const SkillTemplateForm=[
     type:'number',
     required:true,
     restricciones:[
+      {restriccion:restriccion.required},
       {restriccion:restriccion.min,valor:'0',errores:'solo valores positivos'},
       {restriccion:restriccion.max,valor:'100',errores:'no mayor de 100'}
     ]

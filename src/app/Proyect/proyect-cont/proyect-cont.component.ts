@@ -48,6 +48,9 @@ export class ProyectContComponent implements OnInit {
       }
     );
   }
+  get isValid():Boolean{
+    return this.saveProyectForm.valid;
+  }
   iniciaForm(){
     this.saveProyectForm.reset();
   }

@@ -28,7 +28,10 @@ export const ExperiencaFromTemplate:ControlModel<String>[] =[
     new EntradaTexto({
       key:'puesto',
       label:'Puesto que se ocupo :',
-      required:false,
+      required:true,
+      restricciones:[
+        {restriccion:restriccion.required}
+      ],
       order:2
     }),
     new EntradaTexto({

@@ -27,15 +27,15 @@
       <div name="titulo" class="d-block align-baseline ">Detalles <span [ngClass]="isAdmin? 'fa fa-edit ':'fa fa-search'"></span>  </div>
       <div name="cuerpo">
         <!-- <h3>Id [{{Dto.id}}]</h3> -->
-        <form (ngSubmit)="editar()" [formGroup]="Form" class="mb-3 border-1 ">
+        <form (ngSubmit)="editar()" [formGroup]="FormExp" class="mb-3 border-1 ">
           <div *ngFor="let Dato of FormLabes">
-            <sheld-control [etiquetas]="Dato" [form]="Form"></sheld-control>
+            <sheld-control [etiquetas]="Dato" [form]="FormExp"></sheld-control>
           </div>
         </form>
       </div>
       <div name="footer" class="m-0 p-0">
 
-          <button type="button" class="btn btn-success   mx-1" data-bs-dismiss="modal" [hidden]="!isAdmin" [disabled]="!isValid()" (click)="editar()">Actualizar</button>
+          <button type="button" class="btn btn-success   mx-1" data-bs-dismiss="modal" [hidden]="!isAdmin" [disabled]="!isValid" (click)="editar()">Actualizar</button>
           <button type="button" class="btn btn-danger    mx-1" data-bs-dismiss="modal" [hidden]="!isAdmin"  (click)="borrar()">Borrar</button>
           <button type="button" class="btn btn-secondary mx-1" (click)="deshacer()"    [hidden]="!isAdmin" >Deshacer</button>
       </div>

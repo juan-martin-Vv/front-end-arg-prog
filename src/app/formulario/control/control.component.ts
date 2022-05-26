@@ -47,8 +47,6 @@ import { ControlModel } from '../control-model';
         [formControlName]="etiquetas.key"
         [id]="etiquetas.key+formName"
         [type]="etiquetas.type"
-        pattern="\d{4}-\d{2}-\d{2}"
-
         [ngClass]="etiquetas.required?
         (form.untouched?  'form-control' :( isValid? 'form-control is-valid':'form-control is-invalid' ))
         : 'form-control'"
@@ -125,7 +123,9 @@ export class ControlComponent implements OnInit {
         this.etiquetas.restricciones.forEach(res => {
           if (res.restriccion.includes(keyError)) {
             errores = [...errores, res.errores || keyError]
-            //errores.push(res.errores || keyError);
+            // errores.push(res.errores || keyError);
+            // console.log(key+'->'+errores)
+            // console.log(this.form)
           }
         })
       });

@@ -20,7 +20,7 @@ export class EducationUnitComponent implements OnInit {
   //
   @Output() outSignal: EventEmitter<number> = new EventEmitter<number>();
   //
-  Form!: FormGroup;
+  FormEdu!: FormGroup;
   FormLabes: ControlModel<String>[] = EducacionFormTemplate;
   //
   butonId: String = 'proyectID';
@@ -33,11 +33,11 @@ export class EducationUnitComponent implements OnInit {
     private toastService: ToastService
   ) { }
   ngOnInit(): void {
-    this.Form = this.formService.toFromGroup(this.FormLabes);
-    this.Form.setValue(this.Dto);
+    this.FormEdu = this.formService.toFromGroup(this.FormLabes);
+    this.FormEdu.setValue(this.Dto);
     if (!this.isAdmin) //no se puede editar si no es admin
     {
-      this.Form.disable()
+      this.FormEdu.disable()
       //console.log('form disable')
     }
     // console.log(this.Dto);
@@ -47,15 +47,15 @@ export class EducationUnitComponent implements OnInit {
     this.butonId = this.butonId.concat(this.Dto.id?.toString() || '1');
   }
   deshacer():void{
-    this.Form = this.formService.toFromGroup(this.FormLabes);
-    this.Form.setValue(this.Dto);
+    this.FormEdu = this.formService.toFromGroup(this.FormLabes);
+    this.FormEdu.setValue(this.Dto);
     //console.log('cerrear task()')
   }
-  isValid():boolean{
-    return this.Form.valid;
+  get isValid():boolean{
+    return this.FormEdu.valid;
   }
   editar(): void {
-    let saveDto:EducacionDTO=<EducacionDTO>this.Form.getRawValue()
+    let saveDto:EducacionDTO=<EducacionDTO>this.FormEdu.getRawValue()
     if (this.isAdmin) {
       this.miApi.editarEducacion(saveDto)
         .subscribe(
@@ -71,8 +71,8 @@ export class EducationUnitComponent implements OnInit {
           },
           () => {
             this.toastService.succes('Se edito correctamente: ' + this.Dto.titulo);
-            this.Form = this.formService.toFromGroup(this.FormLabes);
-            this.Form.setValue(this.Dto);
+            this.FormEdu = this.formService.toFromGroup(this.FormLabes);
+            this.FormEdu.setValue(this.Dto);
             this.cd.markForCheck();
           }
         )
@@ -85,7 +85,7 @@ export class EducationUnitComponent implements OnInit {
       this.miApi.borrarEducacion(this.Dto.id || -1)
         .subscribe(
           d => {
-            this.Form.reset();
+            this.FormEdu.reset();
             data = d
             console.log('brrado')
             this.toastService.danger('Se borro correctamente: ' + data.id);

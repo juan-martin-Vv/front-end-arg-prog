@@ -32,7 +32,7 @@
       </form>
     </div>
     <div name="footer">
-      <button type="button" class="btn btn-success m-1" (click)="guardar()">Agregar</button>
+      <button type="button" class="btn btn-success m-1" (click)="guardar()" [disabled]="!isValid">Agregar</button>
     </div>
   </app-dashboard>
 </div>

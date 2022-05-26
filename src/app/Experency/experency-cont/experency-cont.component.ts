@@ -65,7 +65,9 @@ export class ExperencyContComponent implements OnInit {
     this.Dto=array;
     this.cd.markForCheck();
   }
-
+  get isValid():boolean{
+    return this.saveForm.valid;
+  }
   guardar():void{
     let saveDto:ExperienciaDTO;
     saveDto=<ExperienciaDTO>this.saveForm.getRawValue();

@@ -1,4 +1,4 @@
-import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm } from "../formulario/control-model";
+import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm, restriccion } from "../formulario/control-model";
 
 
  export class EducacionDTO {
@@ -19,12 +19,18 @@ import { ControlModel, EntradaFechas, EntradaTexto, ImagenForm, NullFieldForm } 
      key:'institucion',
      label:'Institucion educativa :',
      required:true,
+     restricciones:[
+      {restriccion:restriccion.required}
+     ],
      order:2
    }),
    new EntradaTexto({
      key:'titulo',
      label:'Titulo obtenido/pretendido :',
      required:true,
+     restricciones:[
+      {restriccion:restriccion.required}
+     ],
      order:1
    }),
    new ImagenForm({

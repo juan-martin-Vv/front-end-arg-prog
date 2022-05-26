@@ -30,6 +30,9 @@ export class EducationContComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private toast: ToastService
   ) { }
+  get isValid():boolean{
+    return this.saveForm.valid;
+  }
   //
   private getData(): void {
     if (this.dni_actual != null && this.dni_actual != 0)

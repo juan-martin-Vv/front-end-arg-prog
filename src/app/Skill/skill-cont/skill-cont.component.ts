@@ -52,6 +52,9 @@ export class SkillContComponent implements OnInit {
   iniciaForm(){
     this.saveSkillForm.reset();
   }
+  get isValid():boolean{
+    return this.saveSkillForm.valid;
+  }
   signal(inSingal: number):void{
     let array:Skill[]=[];
     // console.log('signal :'+inSingal)
